@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "window.h"
 #include "GLFunctions.h"
+#include "player.h"
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
@@ -14,13 +15,15 @@
 
 int main()
 {
-	float PosX = 0;
-	float PosZ = 0;
+	//float PosX = 0;
+	//float PosZ = 0;
 
 	int width = 800;
 	int height = 600;
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
+
+	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0),0.1,true,3);
 
 	bool quit = false;
 	while (quit != true)
@@ -30,39 +33,19 @@ int main()
 		{
 			if (event.type == SDL_QUIT)
 				quit = true;
-
-			if (event.type == SDL_KEYDOWN)
-			{
-				switch (event.key.keysym.sym)
-				{
-					case SDLK_ESCAPE : quit = 1; break;
-					case SDLK_LEFT : PosX -= 0.1f; break;
-					case SDLK_RIGHT : PosX += 0.1f; break;
-					case SDLK_UP : PosZ -= 0.1f; break;
-					case SDLK_DOWN : PosZ += 0.1f; break;
-					default: break;
-				}
-			}
-
 			else if (event.type == SDL_WINDOWEVENT)
 			{
 				SDL_GetWindowSize(mainWindow.getWindow(), &width, &height);
 				mainWindow.setWindowSize(width, height);
 			}
+			mainPlayer.input(event);
 		}
 
+		mainPlayer.updatePosition();
 
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glColor3f(0.21, 0.254, 0.258);
-
-		glPushMatrix();
-			glTranslatef(PosX,0,PosZ);
-			glRotatef(-PosX*200,0,1,0);
-			GLFunctions::cube(0.5,0.5,0.5);
-		glPopMatrix();
-
-
+		mainPlayer.draw();
 		for (int i=0; i <= 2; ++i)
 		{
 				for (int j = 0; j <=2; ++j)

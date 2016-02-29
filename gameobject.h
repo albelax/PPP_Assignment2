@@ -8,11 +8,11 @@ class GameObject
 private:
 	Vec4 m_position;
 	Vec4 m_rotation;
-	int m_speed;
+	float m_speed;
 	bool m_active;
 
 public:
-	GameObject(const Vec4 _position, const Vec4 _rotation, int _speed, bool _active);
+	GameObject(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active);
 	~GameObject() {}
 	virtual void updatePosition() {}
 	virtual void updateRotation() {}
