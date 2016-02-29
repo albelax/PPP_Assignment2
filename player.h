@@ -17,7 +17,7 @@ private:
 	bool m_active;
 	int m_life;
 	// 0 if the button is currently not pressed, 1 otherwise
-	std::array <char,2> m_keyPressed;
+	std::array <char,4> m_keyPressed;
 
 public:
 	Player(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active, int _life);
