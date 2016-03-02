@@ -15,9 +15,6 @@
 
 int main()
 {
-	//float PosX = 0;
-	//float PosZ = 0;
-
 	int width = 800;
 	int height = 600;
 	Window mainWindow(width,height);
@@ -40,6 +37,7 @@ int main()
 			}
 			mainPlayer.input(event);
 		}
+		mainPlayer.updateRotation();
 
 		mainPlayer.updatePosition();
 

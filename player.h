@@ -6,6 +6,8 @@
 #include <iostream>
 #include "gameobject.h"
 #include "GLFunctions.h"
+#include <math.h>
+
 
 
 class Player : public GameObject
@@ -25,7 +27,7 @@ public:
 	const bool active();
 	void active(const bool _active);
 	void updatePosition();
-	void updateRotation(){}
+	void updateRotation();
 	void checkCollision() {}
 	void const draw();
 	void const shoot() {}

@@ -10,8 +10,8 @@ SOURCES += main.cpp \
     gameobject.cpp \
     player.cpp
 
-INCLUDEPATH += /Library/Frameworks/SDL2_image.framework/Headers
-INCLUDEPATH += /Library/Frameworks/
+#INCLUDEPATH += /Library/Frameworks/SDL2_image.framework/Headers
+#INCLUDEPATH += /Library/Frameworks/
 
 CONFIG+=opengl
 # turn on c++11

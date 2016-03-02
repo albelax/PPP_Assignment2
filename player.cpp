@@ -45,6 +45,25 @@ void Player::input(SDL_Event & _event)
 	}
 }
 
+void Player::updateRotation()
+{
+	//left
+	if (m_keyPressed[0] == '1')
+	{
+		if (m_rotation[0] == 360)
+			m_rotation = 0;
+		m_rotation[0] += 5;
+	}
+	// right
+	if (m_keyPressed[1] == '1')
+	{
+			if (m_rotation[0] == 0)
+				m_rotation = 360;
+		m_rotation[0] -= 5;
+	}
+	//std::cout << m_rotation[0] << std::endl;
+}
+
 /// UpdatePosition gets a member array containing the input previously stored and updates the player's position
 void Player::updatePosition()
 {
@@ -54,37 +73,31 @@ void Player::updatePosition()
 	 * (just in case it will be normalized)
 	 */
 	Vec4 temp(0,1,0,1);
+	float x_direction = 0;
+	float y_direction = 0;
 
-	// left
-	if (m_keyPressed[0] == '1')
+	x_direction = -std::sin((m_rotation[0]* M_PI)/180);
+	y_direction = -std::cos((m_rotation[0]* M_PI)/180);
+
+	if (m_keyPressed[2] == '1' && m_keyPressed[3] == '1')
 	{
-		temp[0] -= m_speed;
+		temp[0] = 0;
+		temp[2] = 0;
 	}
-	// right
-	if (m_keyPressed[1] == '1')
+	// UP
+	else if (m_keyPressed[2] == '1')
 	{
-		temp[0] += m_speed;
+		temp[0] = x_direction * m_speed;
+		temp[2] = y_direction * m_speed;
 	}
-	// up
-	if (m_keyPressed[2] == '1')
+	// DOWN
+	else if (m_keyPressed[3] == '1')
 	{
-		temp[2] -= m_speed;
-	}
-	// down
-	if (m_keyPressed[3] == '1')
-	{
-		temp[2] += m_speed;
+		temp[0] = -x_direction * m_speed;
+		temp[2] = -y_direction * m_speed;
 	}
 
-	if ( (m_keyPressed[0] == '1' || m_keyPressed[1] == '1') && (m_keyPressed[2] == '1' || m_keyPressed[3] == '1'))
-	{
-		//temp.normalize();
-		temp[0] = temp[0]/2;
-		temp[1] = temp[1]/2;
-	}
-	//std::cout << temp[0] << "\t" << temp[2] << std::endl;
 	m_position = m_position + temp;
-
 }
 
 const void Player::draw()
@@ -93,7 +106,13 @@ const void Player::draw()
 
 	glPushMatrix();
 		glTranslatef(m_position[0],0,m_position[2]);
-		//glRotatef(-PosX*200,0,1,0);
+		glRotatef(m_rotation[0],0,1,0);
 		GLFunctions::cube(0.5,0.5,0.5);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(m_position[0],0,m_position[2]);
+		glRotatef(m_rotation[0]+180,0,1,0);
+		GLFunctions::cone(0.5,0.5,4,1);
 	glPopMatrix();
 }
