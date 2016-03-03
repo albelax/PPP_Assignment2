@@ -20,7 +20,7 @@ int main()
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
 
-	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0),0.1,true,3);
+	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0), 0.1, true, 3);
 
 	bool quit = false;
 	while (quit != true)
@@ -38,8 +38,10 @@ int main()
 			mainPlayer.input(event);
 		}
 		mainPlayer.updateRotation();
-
 		mainPlayer.updatePosition();
+
+		Vec4 p_pos = mainPlayer.getPosition();
+		GLFunctions::lookAt(Vec4(p_pos[0],10,p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
 
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

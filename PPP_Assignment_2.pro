@@ -10,9 +10,6 @@ SOURCES += main.cpp \
     gameobject.cpp \
     player.cpp
 
-#INCLUDEPATH += /Library/Frameworks/SDL2_image.framework/Headers
-#INCLUDEPATH += /Library/Frameworks/
-
 CONFIG+=opengl
 # turn on c++11
 CONFIG+=c++11
@@ -24,21 +21,23 @@ HEADERS += \
 
 INCLUDEPATH += $$PWD/include
 
+
+macx:LIBS += -F/Library/Frameworks -framework SDL2
+macx:INCLUDEPATH += /Library/Frameworks/SDL.framework/Headers
+macx:INCLUDEPATH += /usr/local/include/SDL2
+
 QMAKE_CXXFLAGS+= -msse -msse2 -msse3
 macx:QMAKE_CXXFLAGS+= -arch x86_64
 
-LIBS += -F/Library/Frameworks -framework SDL2
-INCLUDEPATH += /Library/Frameworks/SDL.framework/Headers
-INCLUDEPATH += /usr/local/include/SDL2
+INCLUDEPATH +=$$PWD/include
+INCLUDEPATH += $$PWD/GLFunctionsLib/include
+LIBS+= -L $$PWD/GLFunctionsLib/lib -lGLFunctionsLib
 
-INCLUDEPATH += GLFunctionsLib/include
-LIBS+= -L GLFunctionsLib/lib -lGLFunctionsLib
 
 QMAKE_CXXFLAGS += $$system(sdl2-config --cflags)
 LIBS += $$system(sdl2-config --libs)
 
 LIBS += -L/usr/local/lib
-
 macx:LIBS+= -framework OpenGL
 
 # now if we are under unix and not on a Mac (i.e. linux) define GLEW

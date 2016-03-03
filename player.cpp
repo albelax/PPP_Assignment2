@@ -5,6 +5,7 @@ Player::Player(const Vec4 _position, const Vec4 _rotation, float _speed, bool _a
 {
 	m_speed = _speed;
 	m_position = {0,1,0,1};
+	m_meshAddress = "test.obj";
 }
 
 const bool Player::active()
@@ -106,13 +107,22 @@ const void Player::draw()
 
 	glPushMatrix();
 		glTranslatef(m_position[0],0,m_position[2]);
-		glRotatef(m_rotation[0],0,1,0);
-		GLFunctions::cube(0.5,0.5,0.5);
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(m_position[0],0,m_position[2]);
 		glRotatef(m_rotation[0]+180,0,1,0);
-		GLFunctions::cone(0.5,0.5,4,1);
+			GLFunctions::cone(0.4f,0.8f,4,1);
 	glPopMatrix();
+}
+
+const Vec4 Player::getPosition()
+{
+	return m_position;
+}
+
+
+
+void Player::loadMesh()
+{
+//	std::ifstream meshSource;
+//	meshSource.open(m_meshAddress);
+//	meshSource.seekg(0, std::ios::end);
+
 }
