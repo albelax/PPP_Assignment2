@@ -8,7 +8,8 @@ QT += core
 SOURCES += main.cpp \
     window.cpp \
     gameobject.cpp \
-    player.cpp
+    player.cpp \
+    utilityfunctions.cpp
 
 CONFIG+=opengl
 # turn on c++11
@@ -17,7 +18,8 @@ CONFIG+=c++11
 HEADERS += \
 		window.h \
     gameobject.h \
-    player.h
+    player.h \
+    utilityfunctions.h
 
 INCLUDEPATH += $$PWD/include
 

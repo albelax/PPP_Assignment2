@@ -6,7 +6,6 @@
 #include <string>
 #include <SDL.h>
 #include <iostream>
-#include <ios>
 #include "gameobject.h"
 #include "GLFunctions.h"
 #include <math.h>
@@ -25,7 +24,6 @@ private:
 	std::array <char,4> m_keyPressed;
 	std::vector < std::array <float,3> >  m_meshVertices;
 	std::string m_meshAddress;
-	void loadMesh();
 
 public:
 	Player(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active, int _life);

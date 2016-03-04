@@ -116,13 +116,3 @@ const Vec4 Player::getPosition()
 {
 	return m_position;
 }
-
-
-
-void Player::loadMesh()
-{
-//	std::ifstream meshSource;
-//	meshSource.open(m_meshAddress);
-//	meshSource.seekg(0, std::ios::end);
-
-}
