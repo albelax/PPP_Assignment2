@@ -1,8 +1,10 @@
 #include <iostream>
+#include <vector>
 #include <SDL.h>
 #include "window.h"
 #include "GLFunctions.h"
 #include "player.h"
+#include "utilityfunctions.h"
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
@@ -22,6 +24,14 @@ int main()
 
 	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0), 0.1, true, 3);
 
+	std::vector<std::string> p = utilityFunctions::loadFromFile("test.obj");
+
+	std::vector<std::array<float,3>> vertices = utilityFunctions::getVertices(p);
+	for (int i = 0; i < vertices.size(); ++i)
+	{
+		std::cout << vertices[i][0] << "|" << vertices[i][1] << "|" << vertices[i][2] << std::endl;
+	}
+
 	bool quit = false;
 	while (quit != true)
 	{
@@ -40,11 +50,22 @@ int main()
 		mainPlayer.updateRotation();
 		mainPlayer.updatePosition();
 
-		Vec4 p_pos = mainPlayer.getPosition();
-		GLFunctions::lookAt(Vec4(p_pos[0],10,p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
 
+		Vec4 p_pos = mainPlayer.getPosition();
+		GLFunctions::lookAt(Vec4(p_pos[0],10*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glColor4f(0,0,0,1);
+		glPointSize(10);
+		glBegin(GL_TRIANGLE_FAN);
+		float size = 1;
+		float displacement = 1;
+		for (int i = 0; i < vertices.size(); ++i)
+		{
+			glVertex3f(vertices[i][0]*size + displacement,vertices[i][1]*size + displacement,vertices[i][2]*size + displacement);
+		}
+		glEnd();
 		mainPlayer.draw();
 		for (int i=0; i <= 2; ++i)
 		{
@@ -59,5 +80,6 @@ int main()
 		}
 		SDL_GL_SwapWindow(mainWindow.getWindow());
 	}
+
 	return 0;
 }

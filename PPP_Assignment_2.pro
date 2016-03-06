@@ -9,7 +9,7 @@ SOURCES += main.cpp \
     window.cpp \
     gameobject.cpp \
     player.cpp \
-    utilityfunctions.cpp
+		utilityfunctions.cpp
 
 CONFIG+=opengl
 # turn on c++11
@@ -19,7 +19,7 @@ HEADERS += \
 		window.h \
     gameobject.h \
     player.h \
-    utilityfunctions.h
+		utilityfunctions.h
 
 INCLUDEPATH += $$PWD/include
 
