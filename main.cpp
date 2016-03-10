@@ -24,13 +24,10 @@ int main()
 
 	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0), 0.1, true, 3);
 
-	std::vector<std::string> p = utilityFunctions::loadFromFile("test.obj");
-
-	std::vector<std::array<float,3>> vertices = utilityFunctions::getVertices(p);
-	for (int i = 0; i < vertices.size(); ++i)
-	{
-		std::cout << vertices[i][0] << "|" << vertices[i][1] << "|" << vertices[i][2] << std::endl;
-	}
+	std::vector<std::string> obj = utilityFunctions::loadFromFile("test.obj");
+	std::vector<std::array<float,3>> vertices = utilityFunctions::getVertices(obj);
+	std::vector<std::array<float,3>> normals = utilityFunctions::getNormals(obj);
+	std::vector<std::vector<std::string>> faces = utilityFunctions::getFaces(obj);
 
 	bool quit = false;
 	while (quit != true)
@@ -56,28 +53,20 @@ int main()
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glColor4f(0,0,0,1);
-		glPointSize(10);
-		glBegin(GL_TRIANGLE_FAN);
-		float size = 1;
-		float displacement = 1;
-		for (int i = 0; i < vertices.size(); ++i)
-		{
-			glVertex3f(vertices[i][0]*size + displacement,vertices[i][1]*size + displacement,vertices[i][2]*size + displacement);
-		}
-		glEnd();
 		mainPlayer.draw();
-		for (int i=0; i <= 2; ++i)
-		{
-				for (int j = 0; j <=2; ++j)
-				{
-					glColor3f(1,0,0);
-					glPushMatrix();
-						glTranslatef(-2 + j*2, 1, -2 + i*2);
-						GLFunctions::cube(0.5,2,0.5);
-					glPopMatrix();
-				}
-		}
+		utilityFunctions::DrawFaces(vertices, normals, faces);
+
+//		for (int i=0; i <= 2; ++i)
+//		{
+//			for (int j = 0; j <=2; ++j)
+//			{
+//				glColor3f(1,0,0);
+//				glPushMatrix();
+//				glTranslatef(-2 + j*2, 1, -2 + i*2);
+//				GLFunctions::cube(0.5,2,0.5);
+//				glPopMatrix();
+//			}
+//		}
 		SDL_GL_SwapWindow(mainWindow.getWindow());
 	}
 
