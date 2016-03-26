@@ -16,10 +16,10 @@ public:
 	~GameObject() {}
 	virtual void updatePosition() {}
 	virtual void updateRotation() {}
-	virtual const bool active();
-	virtual void active(const bool _active);
+	virtual bool active() const;
+	virtual void active(bool const _active);
 	virtual void checkCollision() {}
-	virtual void const draw() {}
+	virtual void draw() const {}
 };
 
 #endif // GAMEOBJECT_H

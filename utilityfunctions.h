@@ -16,6 +16,8 @@
 #include <ios>
 #include <iostream>
 #include <fstream>
+#include <random>
+#include "GLFunctions.h"
 
 class utilityFunctions
 {
@@ -26,7 +28,10 @@ public:
 	static std::vector<std::array<float,3>> getVertices(const std::vector<std::string> _vectorIn);
 	static std::vector<std::vector<std::string>> getFaces(const std::vector<std::string> _vectorIn);
 	static std::vector<std::array<float,3>> getNormals(const std::vector<std::string> _vectorIn);
-	static void DrawFaces(const std::vector<std::array<float,3>> _vertices,const std::vector<std::array<float,3>> _normals, std::vector<std::vector<std::string>> _faces);
+	static void DrawFaces(const std::vector<std::array<float,3>> _vertices, const std::vector<std::array<float,3>> _normals, std::vector<std::vector<std::string>> _faces, float size);
+	static void DrawSimpleLevel();
+	static std::vector<char> generateObstacles(const int _x, const int _z);
+	static void DrawLevel(const std::vector<char> _map, const int _x);
 };
 
 #endif // UTILITYFUNCTIONS_H

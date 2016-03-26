@@ -6,13 +6,13 @@ m_position(_position), m_rotation(_rotation), m_speed(_speed = 0.1f), m_active(_
 
 }
 
-const bool GameObject::active()
+bool GameObject::active() const
 {
 	return m_active;
 }
 
 
-void GameObject::active(const bool _active)
+void GameObject::active(bool const _active)
 {
 	m_active = _active;
 }

@@ -5,15 +5,19 @@ Player::Player(const Vec4 _position, const Vec4 _rotation, float _speed, bool _a
 {
 	m_speed = _speed;
 	m_position = {0,1,0,1};
-	m_meshAddress = "test.obj";
+	m_meshAddress = "ship.obj";
+	m_mesh = utilityFunctions::loadFromFile(m_meshAddress);
+	m_vertices = utilityFunctions::getVertices(m_mesh);
+	m_normals = utilityFunctions::getNormals(m_mesh);
+	m_faces = utilityFunctions::getFaces(m_mesh);
 }
 
-const bool Player::active()
+bool Player::active() const
 {
-	GameObject::active();
+	return GameObject::active();
 }
 
-void Player::active(const bool _active)
+void Player::active(bool const _active)
 {
 	GameObject::active(_active);
 }
@@ -101,18 +105,22 @@ void Player::updatePosition()
 	m_position = m_position + temp;
 }
 
-const void Player::draw()
+void Player::draw() const
 {
-	glColor3f(0.21, 0.254, 0.258);
-
+	glColor3f(0.21f, 0.254f, 0.258f);
 	glPushMatrix();
-		glTranslatef(m_position[0],0,m_position[2]);
-		glRotatef(m_rotation[0]+180,0,1,0);
-			GLFunctions::cone(0.4f,0.8f,4,1);
+		glTranslatef(m_position.m_x,0,m_position.m_z);
+		glRotatef(m_rotation.m_x+180,0,1,0);
+		utilityFunctions::DrawFaces(m_vertices, m_normals, m_faces,0.5f);
 	glPopMatrix();
 }
 
-const Vec4 Player::getPosition()
+Vec4 Player::getPosition() const
 {
 	return m_position;
+}
+
+Vec4 Player::getRotation() const
+{
+	return m_rotation;
 }
