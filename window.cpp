@@ -4,6 +4,7 @@ Window::Window(const int _width, const int _height)
 {
 	m_width = _width;
 	m_height = _height;
+	SDL_Init(SDL_INIT_TIMER);
 	m_window = SDL_CreateWindow("pippo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 	if (m_window == 0)
 	{

@@ -15,27 +15,44 @@
 	#include <GL/glu.h>
 #endif
 
+Uint32 Update(Uint32 _interval, void * _param)
+{
+	Player * mainPlayer = (Player*)_param;
+	if (mainPlayer != nullptr)
+	{
+		mainPlayer->updateRotation();
+		mainPlayer->updatePosition();
+	}
+	return _interval;
+}
+
 
 int main()
 {
 	int width = 800;
 	int height = 600;
+	bool update = false;
+
+	void *p = malloc(sizeof(bool));
+	p = &update;
+
+	Mesh asteroid("Asteroid.obj");
+	Mesh car("car.obj");
+	Mesh ship("ship.obj");
+
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
 
-	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0), 0.1, true, 3);
-
 	std::vector<char> v = utilityFunctions::generateObstacles(10,10);
 
-	Mesh asteroid("Asteroid.obj");
-	//Mesh car("car.obj");
-	Mesh ship("ship.obj");
-
+	Player mainPlayer(Vec4(0,0,0,0), Vec4(0,0,0,0), 0.1, true, 3, &car);
 
 	bool quit = false;
+	SDL_Event event;
+	SDL_TimerID my_timer_id = SDL_AddTimer(10, Update, &mainPlayer);
+
 	while (quit != true)
 	{
-		SDL_Event event;
 		while(SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
@@ -48,16 +65,15 @@ int main()
 			mainPlayer.input(event);
 		}
 
-		mainPlayer.updateRotation();
-		mainPlayer.updatePosition();
+	//	mainPlayer.updateRotation();
+	//	mainPlayer.updatePosition();
 
 		Vec4 p_pos = mainPlayer.getPosition();
 		Vec4 p_rot = mainPlayer.getRotation();
 		p_rot[0] -= 90;
 
 		GLFunctions::lookAt(Vec4(p_pos[0],10*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
-		//GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.5f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0] ,0.5f,p_pos[2]),Vec4(0,1,0));
-
+		//GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 1, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0] ,0.5f,p_pos[2]),Vec4(0,1,0));
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -79,9 +95,9 @@ int main()
 
 			x += 2;
 		}
-		//utilityFunctions::DrawLevel(v, 10);
-
-		//car.draw(0.5f);
+		update = false;
+		p = &update;
+		utilityFunctions::DrawLevel(v, 10);
 		SDL_GL_SwapWindow(mainWindow.getWindow());
 	}
 

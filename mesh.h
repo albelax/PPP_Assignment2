@@ -22,9 +22,14 @@ class Mesh
 private:
 	std::vector<float> m_vertices;
 	std::vector<float> m_normals;
+	float m_minX, m_minY, m_minZ, m_maxX, m_maxY, m_maxZ;
 public:
 	Mesh(std::string _address);
+	Mesh();
 	void draw(const float size) const;
+	Vec4 min()const {return Vec4(m_minX,m_minY,m_minZ,1);}
+	Vec4 max()const {return Vec4(m_maxX,m_maxY,m_maxZ,1);}
+
 };
 
 #endif // MESH_H

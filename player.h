@@ -10,6 +10,7 @@
 #include "GLFunctions.h"
 #include <math.h>
 #include "utilityfunctions.h"
+#include "mesh.h"
 
 
 class Player : public GameObject
@@ -17,21 +18,23 @@ class Player : public GameObject
 private:
 	Vec4 m_position;
 	Vec4 m_rotation;
+	Vec4 m_lastActiveRotation;
 	float m_speed;
+	float m_currentSpeed;
 	//bool m_active;
 	int m_life;
 	// 0 if the button is currently not pressed, 1 otherwise
 	std::array <char,4> m_keyPressed;
-	std::vector < std::array <float,3> >  m_meshVertices;
-	std::string m_meshAddress;
+	std::array <char,4> m_previousKeyPressed;
+	Mesh * m_playerMesh;
+	float m_size;
 
-	std::vector<std::string> m_mesh;
-	std::vector<std::array<float,3>> m_vertices;
-	std::vector<std::array<float,3>> m_normals;
-	std::vector<std::vector<std::string>> m_faces;
+	Vec4 m_boundingBoxMin;
+	Vec4 m_boundingBoxMax;
+	Vec4 m_centerBoundingBox;
 
 public:
-	Player(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active, int _life);
+	Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_playerMesh);
 	~Player(){}
 	bool active() const;
 	void active(bool const _active);
