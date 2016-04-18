@@ -5,21 +5,29 @@
 
 class GameObject
 {
-private:
+protected:
 	Vec4 m_position;
 	Vec4 m_rotation;
 	float m_speed;
+	float m_collisionLimit_x;
+	float m_collisionLimit_z;
 	bool m_active;
+	bool m_collided;
+
 
 public:
 	GameObject(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active);
 	~GameObject() {}
-	virtual void updatePosition() {}
-	virtual void updateRotation() {}
+	virtual void updatePosition() = 0;
+	virtual void updateRotation() = 0;
 	virtual bool active() const;
 	virtual void active(bool const _active);
-	virtual void checkCollision() {}
+	virtual void checkCollision(bool _collided) {}
 	virtual void draw() const {}
+	Vec4 getPosition() const {return m_position;}
+	Vec4 getRotation() const {return m_rotation;}
+	float getCollisionLimit_x() const {return m_collisionLimit_x;}
+	float getCollisionLimit_z() const {return m_collisionLimit_z;}
 };
 
 #endif // GAMEOBJECT_H

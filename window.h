@@ -25,10 +25,10 @@ private:
 	void glInit();
 public:
 	Window(const int _width, const int _height);
-	const int getWidth(){ return this -> m_width;}
-	const int getHeight(){ return this -> m_height;}
+	int getWidth() const{ return this -> m_width;}
+	int getHeight() const{ return this -> m_height;}
 	void setWindowSize(const int &_width, const int &_height);
-	SDL_Window * const getWindow(){ return m_window;}
-	SDL_Renderer * const getRenderer() { return m_renderer;}
+	SDL_Window * getWindow() const{ return m_window;}
+	SDL_Renderer * getRenderer() const { return m_renderer;}
 };
 #endif // WINDOW_H

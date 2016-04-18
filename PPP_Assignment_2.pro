@@ -10,7 +10,9 @@ SOURCES += main.cpp \
 		gameobject.cpp \
 		player.cpp \
 		utilityfunctions.cpp \
-		mesh.cpp
+		mesh.cpp \
+    obstacle.cpp \
+    level.cpp
 
 CONFIG+=opengl
 # turn on c++11
@@ -21,7 +23,9 @@ HEADERS += \
 		gameobject.h \
 		player.h \
 		utilityfunctions.h \
-		mesh.h
+		mesh.h \
+    obstacle.h \
+    level.h
 
 INCLUDEPATH += $$PWD/include
 
@@ -47,9 +51,9 @@ macx:LIBS+= -framework OpenGL
 # now if we are under unix and not on a Mac (i.e. linux) define GLEW
 linux-g++:linux-g++-64
 {
-		LIBS+= -lGLEW
+		LIBS+= -lGLU
 }
 linux-clang
 {
-		LIBS+= -lGLEW
+		LIBS+= -lGLU
 }

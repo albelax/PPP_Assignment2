@@ -78,8 +78,8 @@ Mesh::Mesh(std::string _address)
 		tempData.clear();
 		line.clear();
 	}
-	//std::cout <<"minX: " << m_minX << " " << "minY: " << m_minY << " " <<"minZ: " << m_minZ <<std::endl;
-	//std::cout <<"maxX: " << m_maxX << " " << "maxY: " << m_maxY << " " <<"maxZ: " << m_maxZ <<std::endl;
+//	std::cout <<"minX: " << m_minX << " " << "minY: " << m_minY << " " <<"minZ: " << m_minZ <<std::endl;
+//	std::cout <<"maxX: " << m_maxX << " " << "maxY: " << m_maxY << " " <<"maxZ: " << m_maxZ <<std::endl;
 	Source.close();
 }
 
