@@ -4,6 +4,11 @@ Bullet::Bullet(const Vec4 _position, const Vec4 _rotation, float _speed, bool _a
 	GameObject(_position, _rotation, _speed, _active), m_mesh()
 {
 	m_mesh = _mesh;
+  m_active = false;
+  m_speed = _speed;
+  m_size = 2;
+  m_collisionLimit_x = std::max(std::abs(_mesh ->min().m_x),m_mesh ->max().m_x)*m_size;
+  m_collisionLimit_z = std::max(std::abs(_mesh ->min().m_z),m_mesh ->max().m_z)*m_size;
 }
 
 void Bullet::active(bool const _active)
@@ -27,12 +32,13 @@ void Bullet::updatePosition()
 
 void Bullet::draw() const
 {
+
 	if (m_active)
 	{
-			glPushMatrix();
-				glTranslatef(m_position.m_x,0,m_position.m_z);
-				glRotatef(m_rotation.m_x,0,1,0);
-				m_mesh->draw(2);
-			glPopMatrix();
+    glPushMatrix();
+      glTranslatef(m_position.m_x,0,m_position.m_z);
+      glRotatef(m_rotation.m_x,0,1,0);
+      m_mesh->draw(m_size);
+    glPopMatrix();
 	}
 }

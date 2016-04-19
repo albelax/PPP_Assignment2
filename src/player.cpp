@@ -9,7 +9,7 @@ Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _a
 	m_collisionLimit_x = std::max(std::abs(_playerMesh ->min().m_x),m_playerMesh ->max().m_x)*m_size;
 	m_collisionLimit_z = std::max(std::abs(_playerMesh ->min().m_z),m_playerMesh ->max().m_z)*m_size;
 	m_collided = false;
-	m_active = false;
+  m_shoot = false;
 }
 
 
@@ -25,7 +25,7 @@ void Player::input(SDL_Event & _event)
 			case SDLK_RIGHT : m_keyPressed[1] = '1'; break;
 			case SDLK_UP : m_keyPressed[2] = '1'; break;
 			case SDLK_DOWN : m_keyPressed[3] = '1'; break;
-			case SDLK_SPACE : shoot();
+      case SDLK_SPACE : shoot(true); break;
 			default: break;
 		}
 	}
@@ -38,7 +38,8 @@ void Player::input(SDL_Event & _event)
 			case SDLK_RIGHT : m_keyPressed[1] = '0'; break;
 			case SDLK_UP : m_keyPressed[2] = '0'; break;
 			case SDLK_DOWN : m_keyPressed[3] = '0'; break;
-			default: break;
+      case SDLK_SPACE : shoot(false); break;
+      default: break;
 		}
 	}
 }
@@ -160,7 +161,6 @@ void Player::draw() const
 }
 
 
-
 void Player::checkCollision(bool _collided)
 {
 //	m_position.m_x += std::sin((m_rotation[0]* M_PI)/180)*m_currentSpeed * 5;
@@ -168,3 +168,4 @@ void Player::checkCollision(bool _collided)
 //	m_currentSpeed = 0;
 	m_collided = _collided;
 }
+

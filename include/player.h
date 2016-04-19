@@ -21,10 +21,11 @@ private:
 	float m_currentSpeed;
 	int m_life;
 	// 0 if the button is currently not pressed, 1 otherwise
-	std::array <char,4> m_keyPressed;
-	std::array <char,4> m_previousKeyPressed;
+  std::array <char,4> m_keyPressed;
+  std::array <char,4> m_previousKeyPressed;
 	Mesh * m_playerMesh;
 	float m_size;
+  bool m_shoot;
 
 public:
 	Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_playerMesh);
@@ -33,7 +34,8 @@ public:
 	void updateRotation();
 	virtual void checkCollision(bool _collided);
 	void draw() const;
-	void shoot() {m_active = true;}
+  void shoot(bool _shoot) {m_shoot = _shoot;}
+  bool didShoot() const {return m_shoot;}
 	//int life() const {}
 	//void life(int const _life) {}
 	void input(SDL_Event & _event);

@@ -15,10 +15,10 @@ class Bullet : public GameObject
 private:
 	Mesh * m_mesh;
 	GameObject * m_parent;
+  float m_size;
 public:
 	Bullet(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active, Mesh * _mesh);
 	void setParent(GameObject * _parent) { m_parent = _parent; }
-	//bool active() const { return m_active; }
 	void active(bool const _active);
 	bool active() const {return m_active;}
 	void updatePosition() override;

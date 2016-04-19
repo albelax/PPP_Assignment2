@@ -5,8 +5,9 @@ Mesh::Mesh()
 
 }
 
-Mesh::Mesh(std::string _address)
+Mesh::Mesh(std::string _address, std::string _name)
 {
+  m_name = _name;
 	std::vector<float> tempVertices;
 	std::vector<float> tempNormals;
 	std::vector<std::string> tempFaces;

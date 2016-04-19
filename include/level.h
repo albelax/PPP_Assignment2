@@ -37,9 +37,13 @@ private:
 	void loadMap();
 public:
 	Level(int _height, int _width, int _obstacles, Player* _player);
-	Level(std::string _address, Player* _player, Mesh * _obstacle);
+  Level(std::string _address, Player* _player, std::vector<Mesh *> &_meshes);
+  void drawMap() const;
 	void draw() const;
 	bool wallCollision(GameObject * _gameObject);
+  void update();
+  void activateBullets();
+
 };
 
 #endif // LEVEL_H

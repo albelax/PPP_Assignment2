@@ -20,36 +20,55 @@
 
 Uint32 Update(Uint32 _interval, void * _param)
 {
-	Player * mainPlayer = (Player*)_param;
-	if (mainPlayer != nullptr)
-	{
-		mainPlayer->updateRotation();
-		mainPlayer->updatePosition();
-	}
+//  Player * mainPlayer = (Player*)_param;
+//	if (mainPlayer != nullptr)
+//	{
+//		mainPlayer->updateRotation();
+//		mainPlayer->updatePosition();
+//	}
+  Level * level = (Level*)_param;
+  if (level != nullptr)
+  {
+    level->update();
+  }
 	return _interval;
 }
 
+Uint32 ActivateBullets(Uint32 _interval, void * _param)
+{
+
+  Level * level = (Level*)_param;
+  if (level != nullptr)
+  {
+    level->activateBullets();
+  }
+  return _interval;
+}
 
 int main()
 {
 	int width = 800;
 	int height = 600;
-
-	Mesh asteroidMesh("models/Asteroid.obj");
-	Mesh shipMesh("models/ship2.obj");
-	Mesh bulletMesh("models/bullet.obj");
+  std::vector<Mesh*> meshes;
+  Mesh shipMesh("models/ship2.obj", "ship");
+  meshes.push_back(&shipMesh);
+  Mesh asteroidMesh("models/Asteroid.obj", "obstacle");
+  meshes.push_back(&asteroidMesh);
+  Mesh bulletMesh("models/bullet.obj", "bullet");
+  meshes.push_back(&bulletMesh);
 
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
 
 	Player mainPlayer(Vec4(24,0,156,0), Vec4(0,0,0,0), 0.2f, false, 3, &shipMesh);
-	Level level("map.txt", &mainPlayer, &asteroidMesh);
+  Level level("map.txt", &mainPlayer, meshes);
 
-	//std::cout << sizeof(mainPlayer) << std::endl;
+  //std::cout << sizeof(Bullet    ) << std::endl;
 
 	bool quit = false;
 	SDL_Event event;
-	SDL_TimerID my_timer_id = SDL_AddTimer(10, Update, &mainPlayer);
+  SDL_TimerID update = SDL_AddTimer(10, Update, &level);
+  SDL_TimerID activateBullets = SDL_AddTimer(200, ActivateBullets, &level);
 
 	while (quit != true)
 	{
@@ -78,8 +97,6 @@ int main()
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		level.wallCollision(&mainPlayer);
-		mainPlayer.draw();
 		level.draw();
 
 		SDL_GL_SwapWindow(mainWindow.getWindow());

@@ -13,12 +13,20 @@ Level::Level(int _width, int _height, int _obstacles, Player* _player) :
 }
 
 
-Level::Level(std::string _address, Player* _player, Mesh *_obstacle)
+Level::Level(std::string _address, Player* _player, std::vector<Mesh *> &_meshes)
 {
 	m_player = _player;
 	m_position = Vec4(0,0,0,1);
 	m_cellSize = 6;
-
+  int obstacle;
+  int bullet;
+  for (int i = 0; i < _meshes.size(); ++i)
+  {
+    if(_meshes[i]->name() == "obstacle")
+      obstacle = i;
+    if(_meshes[i]->name() == "bullet")
+      bullet = i;
+  }
 	std::vector<std::string> mapFile = utilityFunctions::loadFromFile(_address);
 	int count = 0;
 	for (int i = 0; i < mapFile.size(); ++i)
@@ -46,17 +54,17 @@ Level::Level(std::string _address, Player* _player, Mesh *_obstacle)
 				else if(tempLine == "2")
 				{
 					tempVec.push_back('2');
-					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _obstacle,5));
+          m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],5));
 				}
 				else if(tempLine == "3")
 				{
 					tempVec.push_back('3');
-					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _obstacle,8));
+          m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],8));
 				}
 				else if(tempLine == "4")
 				{
 					tempVec.push_back('4');
-					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _obstacle,10));
+          m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],10));
 				}
 			}
 			m_map.push_back(tempVec);
@@ -64,10 +72,10 @@ Level::Level(std::string _address, Player* _player, Mesh *_obstacle)
 		}
 		++count;
 	}
-//	for (int i = 0; i < 30; ++i)
-//	{
-//		m_bullets.push_back(Bullet(Vec4(0,0,0,1),Vec4(0,0,0,1),0.5f,false,);
-//	}
+  for (int i = 0; i < 50; ++i)
+  {
+    m_bullets.push_back(Bullet(Vec4(0,0,0,1),Vec4(0,0,0,1),0.5f,false, _meshes[bullet]));
+  }
 }
 
 void Level::generateMap()
@@ -131,39 +139,6 @@ void Level::generateMap()
 	}
 }
 
-void Level::draw() const
-{
-	float x = m_cellSize/2;
-	float z = m_cellSize/2;
-
-	glColor3f(1, 0, 0);
-
-	for (int i = 0; i < m_map.size(); ++i)
-	{
-		for (int j = 0; j < m_map[i].size(); ++j)
-		{
-			if ( m_map[i][j] == '0' )
-			{
-				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 20
-				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 20)
-				{
-					glPushMatrix();
-						glTranslatef(x,0,z);
-						GLFunctions::cube(m_cellSize, 1, m_cellSize);
-					glPopMatrix();
-				}
-			}
-			x += m_cellSize;
-		}
-		z += m_cellSize;
-		x = m_cellSize/2;
-	}
-	for (int i = 0; i < m_obstacles.size(); ++i)
-	{
-		m_obstacles[i].draw();
-	}
-}
-
 
 bool Level::wallCollision(GameObject * _gameObject)
 {
@@ -180,4 +155,78 @@ bool Level::wallCollision(GameObject * _gameObject)
 	return false;
 }
 
+void Level::update()
+{
+  m_player->updateRotation();
+  m_player->updatePosition();
+  wallCollision(m_player);
+  //std::cout << m_player->didShoot() << std::endl;
 
+  for(int i = 0; i< m_obstacles.size(); ++i)
+  {
+    if(m_bullets[i].active())
+    {
+      m_bullets[i].updatePosition();
+      if(wallCollision(&m_bullets[i]))
+        m_bullets[i].active(false);
+    }
+  }
+}
+
+void Level::draw() const
+{
+  m_player->draw();
+  for (int i = 0; i < m_obstacles.size(); ++i)
+  {
+    m_obstacles[i].draw();
+  }
+  for (int i = 0; i < m_bullets.size(); ++i)
+  {
+    if(m_bullets[i].active())
+      m_bullets[i].draw();
+  }
+  drawMap();
+}
+
+
+void Level::drawMap() const
+{
+  float x = m_cellSize/2;
+  float z = m_cellSize/2;
+
+  glColor3f(1, 0, 0);
+
+  for (int i = 0; i < m_map.size(); ++i)
+  {
+    for (int j = 0; j < m_map[i].size(); ++j)
+    {
+      if ( m_map[i][j] == '0' )
+      {
+        if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 20
+         && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 20)
+        {
+          glPushMatrix();
+            glTranslatef(x,0,z);
+            GLFunctions::cube(m_cellSize, 1, m_cellSize);
+          glPopMatrix();
+        }
+      }
+      x += m_cellSize;
+    }
+    z += m_cellSize;
+    x = m_cellSize/2;
+  }
+}
+
+void Level::activateBullets()
+{
+  for(int i = 0; i< m_obstacles.size(); ++i)
+  {
+    if(m_bullets[i].active() == false && m_player->didShoot())
+    {
+      m_bullets[i].setParent(m_player);
+      m_bullets[i].active(true);
+      return;
+    }
+  }
+}
