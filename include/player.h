@@ -33,7 +33,7 @@ public:
 	void updateRotation();
 	virtual void checkCollision(bool _collided);
 	void draw() const;
-	void shoot() const {}
+	void shoot() {m_active = true;}
 	//int life() const {}
 	//void life(int const _life) {}
 	void input(SDL_Event & _event);

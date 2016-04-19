@@ -14,12 +14,11 @@ protected:
 	bool m_active;
 	bool m_collided;
 
-
 public:
 	GameObject(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active);
 	~GameObject() {}
-	virtual void updatePosition() = 0;
-	virtual void updateRotation() = 0;
+	virtual void updatePosition() {};
+	virtual void updateRotation() {};
 	virtual bool active() const;
 	virtual void active(bool const _active);
 	virtual void checkCollision(bool _collided) {}

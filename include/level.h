@@ -10,6 +10,7 @@
 #include "utilityfunctions.h"
 #include "player.h"
 #include "obstacle.h"
+#include "bullet.h"
 #include <typeinfo>
 
 #ifdef __APPLE__
@@ -31,11 +32,12 @@ private:
 	Player *m_player;
 	std::vector<std::vector<char>> m_map;
 	std::vector<Obstacle> m_obstacles;
+	std::vector<Bullet> m_bullets;
 	void generateMap();
 	void loadMap();
 public:
 	Level(int _height, int _width, int _obstacles, Player* _player);
-	Level(std::string _address, Player* _player);
+	Level(std::string _address, Player* _player, Mesh * _obstacle);
 	void draw() const;
 	bool wallCollision(GameObject * _gameObject);
 };

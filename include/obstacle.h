@@ -12,7 +12,7 @@
 #include "utilityfunctions.h"
 #include "mesh.h"
 
-class Obstacle :public GameObject
+class Obstacle : public GameObject
 {
 private:
 	float m_size;
@@ -22,8 +22,6 @@ private:
 public:
 	Obstacle(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_mesh, float _size);
 	void draw() const;
-	void updatePosition(){};
-	void updateRotation(){};
 	float getCollisionLimitX() const { return  m_collisionLimit_x; }
 	float getCollisionLimitZ() const { return  m_collisionLimit_z; }
 };

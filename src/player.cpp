@@ -4,11 +4,12 @@ Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _a
 	 GameObject(_position, _rotation, _speed, _active), m_life(_life = 3), m_playerMesh()
 {
 	m_playerMesh = _playerMesh;
-	m_size = 0.25f;
-
+	m_size = 0.35f;
+	m_speed = _speed;
 	m_collisionLimit_x = std::max(std::abs(_playerMesh ->min().m_x),m_playerMesh ->max().m_x)*m_size;
 	m_collisionLimit_z = std::max(std::abs(_playerMesh ->min().m_z),m_playerMesh ->max().m_z)*m_size;
 	m_collided = false;
+	m_active = false;
 }
 
 
@@ -24,6 +25,7 @@ void Player::input(SDL_Event & _event)
 			case SDLK_RIGHT : m_keyPressed[1] = '1'; break;
 			case SDLK_UP : m_keyPressed[2] = '1'; break;
 			case SDLK_DOWN : m_keyPressed[3] = '1'; break;
+			case SDLK_SPACE : shoot();
 			default: break;
 		}
 	}
@@ -48,23 +50,31 @@ void Player::updateRotation()
 	 * it is needed to allow the player to
 	 * keep sliding in the last direction before stopping
 	 */
-
+	float rot;
 	if(m_currentSpeed != 0) //left
 	{
-		if (m_keyPressed[0] == '1')
-		{
-			if (m_rotation.m_x == 360)
-				m_rotation.m_x = 0;
-			m_rotation.m_x += 2.5f;
-		}
-
-		if (m_keyPressed[1] == '1') // right
-		{
-				if (m_rotation.m_x == 0)
-					m_rotation.m_x = 360;
-			m_rotation.m_x -= 2.5f;
-		}
+		rot = 3;
 	}
+	else
+	{
+		rot = 2;
+	}
+
+	if (m_keyPressed[0] == '1')
+	{
+		if (m_rotation.m_x == 360)
+			m_rotation.m_x = 0;
+		m_rotation.m_x += rot;
+	}
+
+	if (m_keyPressed[1] == '1') // right
+	{
+			if (m_rotation.m_x == 0)
+				m_rotation.m_x = 360;
+		m_rotation.m_x -= rot;
+	}
+
+
 
 	if (m_keyPressed[2] == '1' || m_keyPressed[3] == '1')
 		m_lastActiveRotation = m_rotation;
@@ -131,8 +141,8 @@ void Player::updatePosition()
 	}
 	else
 	{
-		m_position.m_x += std::sin((m_rotation[0]* M_PI)/180)*m_currentSpeed * 5;
-		m_position.m_z += std::cos((m_rotation[0]* M_PI)/180)*m_currentSpeed * 5;
+		m_position.m_x += std::sin((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed * 5;
+		m_position.m_z += std::cos((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed * 5;
 		m_currentSpeed = 0;
 		m_collided = false;
 	}

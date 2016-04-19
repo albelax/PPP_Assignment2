@@ -5,29 +5,34 @@ CONFIG -= qt
 isEqual(QT_MAJOR_VERSION, 5) {cache() }
 QT += core
 
-SOURCES += main.cpp \
-		window.cpp \
-		gameobject.cpp \
-		player.cpp \
-		utilityfunctions.cpp \
-		mesh.cpp \
-    obstacle.cpp \
-    level.cpp
+INCLUDEPATH += $$PWD/include/
+#INCLUDEPATH += $$PWD/mesh/
+
+SOURCES += src/main.cpp \
+		src/window.cpp \
+		src/gameobject.cpp \
+		src/player.cpp \
+		src/utilityfunctions.cpp \
+		src/mesh.cpp \
+		src/obstacle.cpp \
+		src/level.cpp \
+    src/bullet.cpp
 
 CONFIG+=opengl
 # turn on c++11
 CONFIG+=c++11
 
 HEADERS += \
-		window.h \
-		gameobject.h \
-		player.h \
-		utilityfunctions.h \
-		mesh.h \
-    obstacle.h \
-    level.h
+		include/window.h \
+		include/gameobject.h \
+		include/player.h \
+		include/utilityfunctions.h \
+		include/mesh.h \
+		include/obstacle.h \
+		include/level.h \
+		include/bullet.h
 
-INCLUDEPATH += $$PWD/include
+
 
 
 macx:LIBS += -F/Library/Frameworks -framework SDL2
@@ -51,9 +56,9 @@ macx:LIBS+= -framework OpenGL
 # now if we are under unix and not on a Mac (i.e. linux) define GLEW
 linux-g++:linux-g++-64
 {
-		LIBS+= -lGLU
+		LIBS+= -lGLEW
 }
 linux-clang
 {
-		LIBS+= -lGLU
+		LIBS+= -lGLEW
 }

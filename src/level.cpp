@@ -13,11 +13,12 @@ Level::Level(int _width, int _height, int _obstacles, Player* _player) :
 }
 
 
-Level::Level(std::string _address, Player* _player)
+Level::Level(std::string _address, Player* _player, Mesh *_obstacle)
 {
 	m_player = _player;
 	m_position = Vec4(0,0,0,1);
-	m_cellSize = 5;
+	m_cellSize = 6;
+
 	std::vector<std::string> mapFile = utilityFunctions::loadFromFile(_address);
 	int count = 0;
 	for (int i = 0; i < mapFile.size(); ++i)
@@ -31,19 +32,42 @@ Level::Level(std::string _address, Player* _player)
 		else
 		{
 			std::vector<char> tempVec;
-			for (int j = 0; j < utilityFunctions::split(mapFile[i]).size()-1; ++j)
+			for (int j = 0; j < utilityFunctions::split(mapFile[i]).size(); ++j)
 			{
 				std::string tempLine = utilityFunctions::split(mapFile[i])[j];
-				if( tempLine == "0")
+				if(tempLine == "0")
+				{
 					tempVec.push_back('0');
+				}
 				else if(tempLine == "1")
+				{
 					tempVec.push_back('1');
+				}
+				else if(tempLine == "2")
+				{
+					tempVec.push_back('2');
+					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _obstacle,5));
+				}
+				else if(tempLine == "3")
+				{
+					tempVec.push_back('3');
+					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _obstacle,8));
+				}
+				else if(tempLine == "4")
+				{
+					tempVec.push_back('4');
+					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _obstacle,10));
+				}
 			}
 			m_map.push_back(tempVec);
 			tempVec.clear();
 		}
 		++count;
 	}
+//	for (int i = 0; i < 30; ++i)
+//	{
+//		m_bullets.push_back(Bullet(Vec4(0,0,0,1),Vec4(0,0,0,1),0.5f,false,);
+//	}
 }
 
 void Level::generateMap()
@@ -118,14 +142,14 @@ void Level::draw() const
 	{
 		for (int j = 0; j < m_map[i].size(); ++j)
 		{
-			if ( m_map[i][j] != '1' )
+			if ( m_map[i][j] == '0' )
 			{
-				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 15
-				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 15)
+				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 20
+				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 20)
 				{
 					glPushMatrix();
 						glTranslatef(x,0,z);
-						GLFunctions::cube(m_cellSize,1,m_cellSize);
+						GLFunctions::cube(m_cellSize, 1, m_cellSize);
 					glPopMatrix();
 				}
 			}
@@ -133,6 +157,10 @@ void Level::draw() const
 		}
 		z += m_cellSize;
 		x = m_cellSize/2;
+	}
+	for (int i = 0; i < m_obstacles.size(); ++i)
+	{
+		m_obstacles[i].draw();
 	}
 }
 
