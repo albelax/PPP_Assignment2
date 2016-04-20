@@ -74,9 +74,6 @@ void Player::updateRotation()
 				m_rotation.m_x = 360;
 		m_rotation.m_x -= rot;
 	}
-
-
-
 	if (m_keyPressed[2] == '1' || m_keyPressed[3] == '1')
 		m_lastActiveRotation = m_rotation;
 }
@@ -137,8 +134,12 @@ void Player::updatePosition()
 
 			m_currentSpeed += 0.002f;
 		}
-		m_position = m_position + temp;
 		m_nextPosition = m_position + temp*3;
+		if(m_willCollide == false)
+		{
+			m_position = m_position + temp;
+		}
+		m_willCollide = false;
 	}
 	else
 	{

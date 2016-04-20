@@ -49,6 +49,7 @@ int main()
 {
 	int width = 800;
 	int height = 600;
+	int cellSize = 7;
   std::vector<Mesh*> meshes;
   Mesh shipMesh("models/ship2.obj", "ship");
   meshes.push_back(&shipMesh);
@@ -60,15 +61,13 @@ int main()
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
 
-	Player mainPlayer(Vec4(24,0,156,0), Vec4(0,0,0,0), 0.2f, false, 3, &shipMesh);
-  Level level("map.txt", &mainPlayer, meshes);
-
-  //std::cout << sizeof(Bullet    ) << std::endl;
+	Player mainPlayer(Vec4(cellSize*4,0,cellSize*27,0), Vec4(0,0,0,0), 0.2f, false, 3, &shipMesh);
+	Level level("map.txt", &mainPlayer, meshes, cellSize);
 
 	bool quit = false;
 	SDL_Event event;
   SDL_TimerID update = SDL_AddTimer(10, Update, &level);
-  SDL_TimerID activateBullets = SDL_AddTimer(200, ActivateBullets, &level);
+	SDL_TimerID activateBullets = SDL_AddTimer(200, ActivateBullets, &level);
 
 	while (quit != true)
 	{
@@ -94,6 +93,7 @@ int main()
 		//p_rot[0] -= 90;
 		GLFunctions::lookAt(Vec4(p_pos[0],20*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
 		//GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.8f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0] ,0.5f,p_pos[2]),Vec4(0,1,0));
+
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

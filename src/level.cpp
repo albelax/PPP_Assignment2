@@ -13,11 +13,11 @@ Level::Level(int _width, int _height, int _obstacles, Player* _player) :
 }
 
 
-Level::Level(std::string _address, Player* _player, std::vector<Mesh *> &_meshes)
+Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes, int _cellSize)
 {
 	m_player = _player;
 	m_position = Vec4(0,0,0,1);
-	m_cellSize = 6;
+	m_cellSize = _cellSize;
   int obstacle;
   int bullet;
   for (int i = 0; i < _meshes.size(); ++i)
@@ -54,17 +54,17 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> &_meshes
 				else if(tempLine == "2")
 				{
 					tempVec.push_back('2');
-          m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],5));
+					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize+1.5f, 0, i*m_cellSize - m_cellSize*1.5f),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],6));
 				}
 				else if(tempLine == "3")
 				{
 					tempVec.push_back('3');
-          m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],8));
+					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize+1.5f, 0, i*m_cellSize - m_cellSize*1.5f),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],8));
 				}
 				else if(tempLine == "4")
 				{
 					tempVec.push_back('4');
-          m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize, 0, i*m_cellSize - m_cellSize*2),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],10));
+					m_obstacles.push_back(Obstacle(Vec4(j*m_cellSize+1.5f, 0, i*m_cellSize - m_cellSize*1.5f),Vec4(0,0,0,1),0,true,0, _meshes[obstacle],12));
 				}
 			}
 			m_map.push_back(tempVec);
@@ -140,18 +140,15 @@ void Level::generateMap()
 }
 
 
-bool Level::wallCollision(GameObject * _gameObject)
+bool Level::wallCollision(GameObject * _gameObject, Vec4 _pos)
 {
-	int xPositive = static_cast<int>((_gameObject->getPosition().m_x + _gameObject->getCollisionLimit_x())/(m_cellSize));
-	int zPositive = static_cast<int>((_gameObject->getPosition().m_z + _gameObject->getCollisionLimit_z())/(m_cellSize));
-	int xNegative = static_cast<int>((_gameObject->getPosition().m_x - _gameObject->getCollisionLimit_x())/(m_cellSize));
-	int zNegative = static_cast<int>((_gameObject->getPosition().m_z - _gameObject->getCollisionLimit_z())/(m_cellSize));
+	int xPositive = static_cast<int>((_pos.m_x + _gameObject->getCollisionLimit_x())/(m_cellSize));
+	int zPositive = static_cast<int>((_pos.m_z + _gameObject->getCollisionLimit_z())/(m_cellSize));
+	int xNegative = static_cast<int>((_pos.m_x - _gameObject->getCollisionLimit_x())/(m_cellSize));
+	int zNegative = static_cast<int>((_pos.m_z - _gameObject->getCollisionLimit_z())/(m_cellSize));
 
 	if(m_map[zPositive][xPositive] == '0' || m_map[zNegative][xNegative] == '0' || m_map[zPositive][xNegative] == '0' || m_map[zNegative][xPositive] == '0')
-	{
-		_gameObject->checkCollision(true);
 		return true;
-	}
 	return false;
 }
 
@@ -159,15 +156,18 @@ void Level::update()
 {
   m_player->updateRotation();
   m_player->updatePosition();
-  wallCollision(m_player);
+	if(wallCollision(m_player, m_player->getPosition()))
+		m_player->checkCollision(true);
   //std::cout << m_player->didShoot() << std::endl;
+	if(wallCollision(m_player, m_player->getNextPosition()))
+		m_player->willCollide(true);
 
   for(int i = 0; i< m_obstacles.size(); ++i)
   {
     if(m_bullets[i].active())
     {
       m_bullets[i].updatePosition();
-      if(wallCollision(&m_bullets[i]))
+			if(wallCollision(&m_bullets[i], m_bullets[i].getPosition()))
         m_bullets[i].active(false);
     }
   }

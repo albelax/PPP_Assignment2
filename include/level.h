@@ -37,10 +37,10 @@ private:
 	void loadMap();
 public:
 	Level(int _height, int _width, int _obstacles, Player* _player);
-  Level(std::string _address, Player* _player, std::vector<Mesh *> &_meshes);
+	Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes, int _cellSize);
   void drawMap() const;
 	void draw() const;
-	bool wallCollision(GameObject * _gameObject);
+	bool wallCollision(GameObject * _gameObject, Vec4 _pos);
   void update();
   void activateBullets();
 

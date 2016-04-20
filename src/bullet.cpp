@@ -6,7 +6,7 @@ Bullet::Bullet(const Vec4 _position, const Vec4 _rotation, float _speed, bool _a
 	m_mesh = _mesh;
   m_active = false;
   m_speed = _speed;
-  m_size = 2;
+	m_size = 1;
   m_collisionLimit_x = std::max(std::abs(_mesh ->min().m_x),m_mesh ->max().m_x)*m_size;
   m_collisionLimit_z = std::max(std::abs(_mesh ->min().m_z),m_mesh ->max().m_z)*m_size;
 }
@@ -15,8 +15,8 @@ void Bullet::active(bool const _active)
 {
 	if (m_active == false)
 	{
-		m_position = m_parent->getPosition();
 		m_rotation = m_parent->getRotation();
+		m_position = m_parent->getPosition();
 	}
 	m_active = _active;
 }
