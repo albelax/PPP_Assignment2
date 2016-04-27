@@ -6,11 +6,11 @@
 #include <string>
 #include <SDL.h>
 #include <iostream>
-#include "gameobject.h"
+#include "GameObject.h"
 #include "GLFunctions.h"
 #include <math.h>
-#include "utilityfunctions.h"
-#include "mesh.h"
+#include "UtilityFunctions.h"
+#include "Mesh.h"
 
 class Player : public GameObject
 {
