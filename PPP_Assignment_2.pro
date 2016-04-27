@@ -10,32 +10,32 @@ INCLUDEPATH += $$PWD/include/
 
 SOURCES += \
 		src/main.cpp \
-		src/window.cpp \
-		src/gameobject.cpp \
-		src/player.cpp \
-		src/utilityfunctions.cpp \
-		src/mesh.cpp \
-		src/obstacle.cpp \
-		src/level.cpp \
-    src/bullet.cpp \
-    src/enemy.cpp \
-    src/enemysatellite.cpp
+		src/Window.cpp \
+		src/GameObject.cpp \
+		src/Player.cpp \
+		src/UtilityfFunctions.cpp \
+		src/Mesh.cpp \
+		src/Obstacle.cpp \
+		src/Level.cpp \
+    src/Bullet.cpp \
+    src/Enemy.cpp \
+    src/EnemySatellite.cpp
 
 CONFIG+=opengl
 # turn on c++11
 CONFIG+=c++11
 
 HEADERS += \
-		include/window.h \
-		include/gameobject.h \
-		include/player.h \
-		include/utilityfunctions.h \
-		include/mesh.h \
-		include/obstacle.h \
-		include/level.h \
-		include/bullet.h \
-		include/enemy.h \
-		include/enemysatellite.h
+		include/Window.h \
+		include/GameObject.h \
+		include/Player.h \
+		include/UtilityFunctions.h \
+		include/Mesh.h \
+		include/Obstacle.h \
+		include/Level.h \
+		include/Bullet.h \
+		include/Enemy.h \
+		include/EnemySatellite.h
 
 
 
