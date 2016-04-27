@@ -28,9 +28,8 @@ void Window::setWindowSize(const int &_width, const int &_height)
 	m_height = _height;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 50.0f);
-	glViewport(0,0,m_width,m_height);
-	//GLFunctions::perspective(45,float(m_width/m_height),0.01,500);
+  gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 100.0f);
+  glViewport(0,0,m_width,m_height);
 	glMatrixMode(GL_MODELVIEW);
 
 }
@@ -63,8 +62,7 @@ void Window::glInit()
 	glViewport(0,0,m_width,m_height);
 
 	//GLFunctions::perspective(45,float(1024/720),0.01,500);
-	gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 10.0f);
-	//GLFunctions::lookAt(Vec4(0,10,4),Vec4(0,0,0),Vec4(0,1,0));
+  gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 100.0f); // 10 if topdown
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glColor3f(1,1,0);

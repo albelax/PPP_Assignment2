@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "GLFunctions.h"
 #include <math.h>
-#include "utilityfunctions.h"
+#include "UtilityFunctions.h"
 #include "Mesh.h"
 
 class Bullet : public GameObject

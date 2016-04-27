@@ -257,8 +257,8 @@ void Level::drawMap() const
     {
       if ( m_map[i][j] == '0' )
       {
-				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 30
-				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 30)
+        if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 100
+         && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 100)
         {
           glPushMatrix();
             glTranslatef(x,0,z);

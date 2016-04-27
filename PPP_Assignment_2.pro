@@ -13,7 +13,7 @@ SOURCES += \
 		src/Window.cpp \
 		src/GameObject.cpp \
 		src/Player.cpp \
-		src/UtilityfFunctions.cpp \
+    src/UtilityFunctions.cpp \
 		src/Mesh.cpp \
 		src/Obstacle.cpp \
 		src/Level.cpp \
