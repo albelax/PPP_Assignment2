@@ -1,4 +1,4 @@
-#include "utilityfunctions.h"
+#include "UtilityFunctions.h"
 
 std::vector<std::string> utilityFunctions::split(std::string _stringIn, char _splitChar)
 {
