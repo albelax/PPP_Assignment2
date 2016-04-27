@@ -6,13 +6,13 @@
 #include <string>
 #include <SDL.h>
 #include <iostream>
-#include "gameobject.h"
+#include "GameObject.h"
 #include "GLFunctions.h"
 #include <math.h>
-#include "utilityfunctions.h"
-#include "mesh.h"
-#include "player.h"
-#include "enemy.h"
+#include "UtilityFunctions.h"
+#include "Mesh.h"
+#include "Player.h"
+#include "Enemy.h"
 
 class EnemySatellite : public Enemy
 {
