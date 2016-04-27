@@ -1,4 +1,4 @@
-#include "enemy.h"
+#include "Enemy.h"
 
 Enemy::Enemy(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_mesh, Player * _player) :
 	 GameObject(_position, _rotation, _speed, _active), m_life(_life), m_mesh()
