@@ -7,12 +7,12 @@
 #include <SDL.h>
 #include <math.h>
 #include "GLFunctions.h"
-#include "utilityfunctions.h"
-#include "player.h"
-#include "obstacle.h"
-#include "bullet.h"
-#include "enemy.h"
-#include "enemysatellite.h"
+#include "UtilityFunctions.h"
+#include "Player.h"
+#include "Obstacle.h"
+#include "Bullet.h"
+#include "Enemy.h"
+#include "EnemySatellite.h"
 #include <typeinfo>
 
 #ifdef __APPLE__
