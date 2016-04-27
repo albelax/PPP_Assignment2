@@ -17,9 +17,9 @@ SOURCES += \
 		src/Mesh.cpp \
 		src/Obstacle.cpp \
 		src/Level.cpp \
-    src/Bullet.cpp \
-    src/Enemy.cpp \
-    src/EnemySatellite.cpp
+    		src/Bullet.cpp \
+    		src/Enemy.cpp \
+    		src/EnemySatellite.cpp
 
 CONFIG+=opengl
 # turn on c++11
