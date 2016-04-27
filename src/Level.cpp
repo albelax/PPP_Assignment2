@@ -1,4 +1,4 @@
-#include "level.h"
+#include "Level.h"
 
 Level::Level(int _width, int _height, int _obstacles, Player* _player) :
 	m_mapWidth(_width),m_mapHeight(_height),m_ObstacleNumber(_obstacles)
