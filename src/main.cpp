@@ -1,14 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <SDL.h>
-#include "window.h"
+#include "Window.h"
 #include "GLFunctions.h"
-#include "player.h"
-#include "utilityfunctions.h"
-#include "mesh.h"
-#include "obstacle.h"
-#include "level.h"
-#include "bullet.h"
+#include "Player.h"
+#include "utilityFunctions.h"
+#include "Mesh.h"
+#include "Obstacle.h"
+#include "Level.h"
+#include "Bullet.h"
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
