@@ -15,7 +15,7 @@
 #include <SDL.h>
 #include <iostream>
 #include "GLFunctions.h"
-#include "utilityfunctions.h"
+#include "UtilityFunctions.h"
 
 class Mesh
 {
