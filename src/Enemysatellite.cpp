@@ -1,4 +1,4 @@
-#include "enemysatellite.h"
+#include "EnemySatellite.h"
 
 EnemySatellite::EnemySatellite(Vec4 _position, Vec4 _center, Mesh *_mesh, Player * _player, float _speed, bool _active, int _life):
 	Enemy(_position,Vec4(0,0,0,1),_speed, _active, _life, _mesh, _player), m_Center(_center)
