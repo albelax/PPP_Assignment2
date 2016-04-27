@@ -1,4 +1,4 @@
-#include "bullet.h"
+#include "Bullet.h"
 
 Bullet::Bullet(const Vec4 _position, const Vec4 _rotation, float _speed, bool _active, Mesh * _mesh) :
 	GameObject(_position, _rotation, _speed, _active), m_mesh()
