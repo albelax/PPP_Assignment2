@@ -20,36 +20,32 @@
 
 Uint32 Update(Uint32 _interval, void * _param)
 {
-//  Player * mainPlayer = (Player*)_param;
-//	if (mainPlayer != nullptr)
-//	{
-//		mainPlayer->updateRotation();
-//		mainPlayer->updatePosition();
-//	}
   Level * level = (Level*)_param;
   if (level != nullptr)
   {
-    level->update();
+		level->update();
   }
 	return _interval;
 }
 
 Uint32 ActivateBullets(Uint32 _interval, void * _param)
 {
-
   Level * level = (Level*)_param;
   if (level != nullptr)
   {
-    level->activateBullets();
+		level->getPlayer()->canShoot(true);
   }
   return _interval;
 }
 
+
+
 int main()
 {
+	SDL_Init(SDL_INIT_JOYSTICK);
 	int width = 800;
 	int height = 600;
-	int cellSize = 7;
+	int cellSize = 9;
   std::vector<Mesh*> meshes;
   Mesh shipMesh("models/ship2.obj", "ship");
   meshes.push_back(&shipMesh);
@@ -66,9 +62,10 @@ int main()
 
 	bool quit = false;
 	SDL_Event event;
-  SDL_TimerID update = SDL_AddTimer(10, Update, &level);
-	SDL_TimerID activateBullets = SDL_AddTimer(200, ActivateBullets, &level);
+	SDL_TimerID update = SDL_AddTimer(10, Update, &level);
+	SDL_TimerID activateBullets = SDL_AddTimer(250, ActivateBullets, &level);
 
+	std::cout << SDL_NumJoysticks() << std::endl;
 	while (quit != true)
 	{
 		while(SDL_PollEvent(&event))
@@ -100,7 +97,7 @@ int main()
 		level.draw();
 
 		SDL_GL_SwapWindow(mainWindow.getWindow());
+		//glFinish();
 	}
-
 	return 0;
 }

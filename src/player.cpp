@@ -9,7 +9,8 @@ Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _a
 	m_collisionLimit_x = std::max(std::abs(_playerMesh ->min().m_x),m_playerMesh ->max().m_x)*m_size;
 	m_collisionLimit_z = std::max(std::abs(_playerMesh ->min().m_z),m_playerMesh ->max().m_z)*m_size;
 	m_collided = false;
-  m_shoot = false;
+	//m_shoot = false;
+	m_canShoot = true;
 }
 
 
@@ -25,7 +26,7 @@ void Player::input(SDL_Event & _event)
 			case SDLK_RIGHT : m_keyPressed[1] = '1'; break;
 			case SDLK_UP : m_keyPressed[2] = '1'; break;
 			case SDLK_DOWN : m_keyPressed[3] = '1'; break;
-      case SDLK_SPACE : shoot(true); break;
+			case SDLK_SPACE : m_keyPressed[4] = '1';break;
 			default: break;
 		}
 	}
@@ -38,7 +39,7 @@ void Player::input(SDL_Event & _event)
 			case SDLK_RIGHT : m_keyPressed[1] = '0'; break;
 			case SDLK_UP : m_keyPressed[2] = '0'; break;
 			case SDLK_DOWN : m_keyPressed[3] = '0'; break;
-      case SDLK_SPACE : shoot(false); break;
+			case SDLK_SPACE : m_keyPressed[4] = '0'; break;
       default: break;
 		}
 	}
@@ -115,36 +116,37 @@ void Player::updatePosition()
 			temp[2] = -y_direction * m_speed;
 		}
 
-		// slowdown before stopping
-		if (m_currentSpeed < 0.001f && m_currentSpeed > -0.001f)
-		{
-			m_currentSpeed = 0;
-		}
-		if (m_keyPressed[2] == '0' && m_currentSpeed > 0 && m_previousKeyPressed[3] != '1')
-		{
-			temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
-			temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
-			m_currentSpeed -= 0.002f;
-		}
 
-		if(m_keyPressed[3] == '0' && m_currentSpeed < 0 && m_previousKeyPressed[2] != '1')
-		{
-			temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
-			temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
-
-			m_currentSpeed += 0.002f;
-		}
 		m_nextPosition = m_position + temp*3;
 		if(m_willCollide == false)
 		{
+			// slowdown before stopping
+			if (m_currentSpeed < 0.001f && m_currentSpeed > -0.001f)
+			{
+				m_currentSpeed = 0;
+			}
+			if (m_keyPressed[2] == '0' && m_currentSpeed > 0 && m_previousKeyPressed[3] != '1')
+			{
+				temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
+				temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
+				m_currentSpeed -= 0.002f;
+			}
+
+			if(m_keyPressed[3] == '0' && m_currentSpeed < 0 && m_previousKeyPressed[2] != '1')
+			{
+				temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
+				temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
+
+				m_currentSpeed += 0.002f;
+			}
 			m_position = m_position + temp;
 		}
 		m_willCollide = false;
 	}
 	else
 	{
-		m_position.m_x += std::sin((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed * 5;
-		m_position.m_z += std::cos((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed * 5;
+		m_position.m_x += std::sin((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed/0.5f;
+		m_position.m_z += std::cos((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed/0.5f;
 		m_currentSpeed = 0;
 		m_collided = false;
 	}
@@ -152,8 +154,7 @@ void Player::updatePosition()
 
 void Player::draw() const
 {
-	glPointSize(10);
-	glColor3f(0.21f, 0.254f, 0.258f);
+	glColor3f(0, 1, 0);
 	glPushMatrix();
 		glTranslatef(m_position.m_x,0,m_position.m_z);
 		glRotatef(m_rotation.m_x,0,1,0);

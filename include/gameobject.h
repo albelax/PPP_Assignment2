@@ -9,6 +9,7 @@ protected:
 	Vec4 m_position;
 	Vec4 m_rotation;
 	float m_speed;
+	float m_size;
 	float m_collisionLimit_x;
 	float m_collisionLimit_z;
 	bool m_active;
@@ -27,6 +28,7 @@ public:
 	Vec4 getRotation() const {return m_rotation;}
 	float getCollisionLimit_x() const {return m_collisionLimit_x;}
 	float getCollisionLimit_z() const {return m_collisionLimit_z;}
+	float getSize() const { return m_size; }
 };
 
 #endif // GAMEOBJECT_H

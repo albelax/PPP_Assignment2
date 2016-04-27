@@ -11,6 +11,8 @@
 #include "player.h"
 #include "obstacle.h"
 #include "bullet.h"
+#include "enemy.h"
+#include "enemysatellite.h"
 #include <typeinfo>
 
 #ifdef __APPLE__
@@ -33,6 +35,9 @@ private:
 	std::vector<std::vector<char>> m_map;
 	std::vector<Obstacle> m_obstacles;
 	std::vector<Bullet> m_bullets;
+	std::vector<EnemySatellite> m_Satellites;
+	std::vector<Enemy> m_enemies;
+	std::vector<GameObject*> m_objects;
 	void generateMap();
 	void loadMap();
 public:
@@ -43,7 +48,7 @@ public:
 	bool wallCollision(GameObject * _gameObject, Vec4 _pos);
   void update();
   void activateBullets();
-
+	Player * getPlayer() { return m_player;}
 };
 
 #endif // LEVEL_H

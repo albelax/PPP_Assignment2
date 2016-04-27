@@ -8,7 +8,8 @@ QT += core
 INCLUDEPATH += $$PWD/include/
 #INCLUDEPATH += $$PWD/mesh/
 
-SOURCES += src/main.cpp \
+SOURCES += \
+		src/main.cpp \
 		src/window.cpp \
 		src/gameobject.cpp \
 		src/player.cpp \
@@ -16,7 +17,9 @@ SOURCES += src/main.cpp \
 		src/mesh.cpp \
 		src/obstacle.cpp \
 		src/level.cpp \
-    src/bullet.cpp
+    src/bullet.cpp \
+    src/enemy.cpp \
+    src/enemysatellite.cpp
 
 CONFIG+=opengl
 # turn on c++11
@@ -30,7 +33,9 @@ HEADERS += \
 		include/mesh.h \
 		include/obstacle.h \
 		include/level.h \
-		include/bullet.h
+		include/bullet.h \
+		include/enemy.h \
+		include/enemysatellite.h
 
 
 
@@ -53,12 +58,6 @@ LIBS += $$system(sdl2-config --libs)
 LIBS += -L/usr/local/lib
 macx:LIBS+= -framework OpenGL
 
-# now if we are under unix and not on a Mac (i.e. linux) define GLEW
-#linux-g++:linux-g++-64
-#{
-#    LIBS+= -lGLU
-#}
-#linux-clang
-#{
-#    LIBS+= -lGLU
-#}
+linux-g++:linux-g++-64:LIBS+= -lGLU
+linux-clang : LIBS+= -lGLU
+

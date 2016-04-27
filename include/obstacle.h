@@ -22,8 +22,8 @@ private:
 public:
 	Obstacle(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_mesh, float _size);
 	void draw() const;
-	float getCollisionLimitX() const { return  m_collisionLimit_x; }
-	float getCollisionLimitZ() const { return  m_collisionLimit_z; }
+	//float getCollisionLimitX() const { return  m_collisionLimit_x; }
+	//float getCollisionLimitZ() const { return  m_collisionLimit_z; }
 };
 
 #endif // OBSTACLE_H
