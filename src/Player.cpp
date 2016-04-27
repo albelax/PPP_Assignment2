@@ -1,4 +1,4 @@
-#include "player.h"
+#include "Player.h"
 
 Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_playerMesh) :
 	 GameObject(_position, _rotation, _speed, _active), m_life(_life = 3), m_playerMesh()
