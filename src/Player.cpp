@@ -116,7 +116,6 @@ void Player::updatePosition()
 			temp[2] = -y_direction * m_speed;
 		}
 
-
 		m_nextPosition = m_position + temp*3;
 		if(m_willCollide == false)
 		{

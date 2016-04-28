@@ -23,6 +23,7 @@ public:
 	bool active() const {return m_active;}
 	void updatePosition() override;
 	void draw() const;
+	GameObject * getParent() { return m_parent; }
 };
 
 #endif // BULLET_H

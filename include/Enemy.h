@@ -17,7 +17,7 @@ class Enemy : public GameObject
 {
 protected:
 	bool m_shoot;
-	int m_life;
+	//int m_life;
 	Mesh * m_mesh;
 	Player * m_player;
 	float m_size;

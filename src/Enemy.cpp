@@ -1,12 +1,13 @@
 #include "Enemy.h"
 
 Enemy::Enemy(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_mesh, Player * _player) :
-	 GameObject(_position, _rotation, _speed, _active), m_life(_life), m_mesh()
+	 GameObject(_position, _rotation, _speed, _active), m_mesh()
 {
 	m_mesh = _mesh;
 	m_size = 0.35f;
 	m_player = _player;
 	m_canShoot = false;
+	m_life = _life;
 	m_collisionLimit_x = std::max(std::abs(m_mesh->min().m_x), m_mesh->max().m_x)*m_size;
 	m_collisionLimit_z = std::max(std::abs(m_mesh->min().m_z), m_mesh->max().m_z)*m_size;
 }

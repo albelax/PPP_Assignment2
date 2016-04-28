@@ -48,6 +48,7 @@ public:
 	bool wallCollision(GameObject * _gameObject, Vec4 _pos);
   void update();
   void activateBullets();
+	void Collisions();
 	Player * getPlayer() { return m_player;}
 };
 

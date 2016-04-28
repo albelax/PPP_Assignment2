@@ -57,7 +57,7 @@ int main()
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
 
-	Player mainPlayer(Vec4(cellSize*4,0,cellSize*27,0), Vec4(0,0,0,0), 0.2f, false, 3, &shipMesh);
+	Player mainPlayer(Vec4(cellSize*4,0,cellSize*27,0), Vec4(0,0,0,0), 0.2f, true, 10, &shipMesh);
 	Level level("map.txt", &mainPlayer, meshes, cellSize);
 
 	bool quit = false;
@@ -65,7 +65,7 @@ int main()
 	SDL_TimerID update = SDL_AddTimer(10, Update, &level);
 	SDL_TimerID activateBullets = SDL_AddTimer(250, ActivateBullets, &level);
 
-	std::cout << SDL_NumJoysticks() << std::endl;
+	//std::cout << SDL_NumJoysticks() << std::endl;
 	while (quit != true)
 	{
 		while(SDL_PollEvent(&event))
@@ -84,8 +84,8 @@ int main()
 		Vec4 p_rot = mainPlayer.getRotation();
 
     p_rot[0] -= 90;
-    //GLFunctions::lookAt(Vec4(p_pos[0],20*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
-    GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.8f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0] ,0.5f,p_pos[2]),Vec4(0,1,0));
+		//GLFunctions::lookAt(Vec4(p_pos[0],20*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
+		GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.8f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0],0.5f,p_pos[2]),Vec4(0,1,0));
 
     glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

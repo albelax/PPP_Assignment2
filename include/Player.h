@@ -38,8 +38,6 @@ public:
 	//void shoot(bool _shoot) { m_shoot = _shoot; }
 	bool canShoot() const { return m_canShoot; }
 	void canShoot(bool _canShoot) { m_canShoot = _canShoot; }
-	//int life() const {}
-	//void life(int const _life) {}
 	void input(SDL_Event & _event);
 	Vec4 getNextPosition() const { return m_nextPosition; }
 	void willCollide(bool _willCollide) { m_willCollide = _willCollide; }
