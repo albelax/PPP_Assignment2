@@ -18,7 +18,7 @@ private:
 	Vec4 m_lastActiveRotation;
 	Vec4 m_nextPosition;
 	float m_currentSpeed;
-	int m_life;
+  float m_initialLife;
 	// 0 if the button is currently not pressed, 1 otherwise
 	std::array <char,5> m_keyPressed;
 	std::array <char,5> m_previousKeyPressed;
@@ -42,6 +42,7 @@ public:
 	Vec4 getNextPosition() const { return m_nextPosition; }
 	void willCollide(bool _willCollide) { m_willCollide = _willCollide; }
 	std::array <char,5> pressedKeys() { return m_keyPressed; }
+  void resetLife() { m_life = m_initialLife; }
 };
 
 #endif // PLAYER_H

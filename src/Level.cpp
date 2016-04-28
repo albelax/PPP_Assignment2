@@ -180,13 +180,18 @@ bool Level::wallCollision(GameObject * _gameObject, Vec4 _pos)
 
 void Level::update()
 {
-	m_player->updateRotation();
-	m_player->updatePosition();
+  if(m_player != nullptr)
+  {
+    m_player->updateRotation();
+    m_player->updatePosition();
+    std::cout << m_player->life() << std::endl;
+
+  }
 
 	std::vector<GameObject*>::iterator it;
 	for (it = m_objects.begin(); it != m_objects.end(); ++it)
 	{
-		if(std::abs(m_player->getPosition().m_x - (*it)->getPosition().m_x) < 100 && std::abs(m_player->getPosition().m_z - (*it)->getPosition().m_z) < 100)
+    if(std::abs(m_player->getPosition().m_x - (*it)->getPosition().m_x) < 50 && std::abs(m_player->getPosition().m_z - (*it)->getPosition().m_z) < 50)
 		{
 			(*it)->updatePosition();
 			(*it)->updateRotation();
@@ -232,6 +237,7 @@ void Level::drawMap() const
 				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 100
 				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 100)
         {
+          glColor3f(0.2f,0.3f,0.6f);
           glPushMatrix();
             glTranslatef(x,0,z);
             GLFunctions::cube(m_cellSize, 1, m_cellSize);
@@ -307,7 +313,12 @@ void Level::Collisions()
 					m_bullets[j].active(false);
 					(*it)->life((*it)->life()-1);
 					if((*it)->life() == 0)
+          {
+            // delete the enemy
 						m_objects.erase(it);
+            // restore player health
+            m_player->resetLife();
+          }
 				}
 				// collision between any bullet with any gameobject
 				else if (m_bullets[j].getParent() != (*it) && std::abs(m_bullets[j].getPosition().m_x - (*it)->getPosition().m_x) < m_bullets[j].getCollisionLimit_x() + (*it)->getCollisionLimit_x()
@@ -333,13 +344,15 @@ void Level::Collisions()
 			{
 				m_bullets[i].active(false);
 			}
-			if (dynamic_cast<Enemy*>(m_bullets[i].getParent()))
+      if (dynamic_cast<Enemy*>(m_bullets[i].getParent()) )
 			{
 				if (std::abs(m_bullets[i].getPosition().m_x - m_player->getPosition().m_x) < m_bullets[i].getCollisionLimit_x() + m_player->getCollisionLimit_x()
 				&& std::abs(m_bullets[i].getPosition().m_z - m_player->getPosition().m_z) < m_bullets[i].getCollisionLimit_z()+ m_player->getCollisionLimit_z())
-				{
+        {
 					m_player->life(m_player->life()-1);
-					m_bullets[i].active(false);
+          m_bullets[i].active(false);
+          if (m_player->life() == 0)
+            m_player->active(false);
 				}
 			}
 		}

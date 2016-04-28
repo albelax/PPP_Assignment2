@@ -32,9 +32,12 @@ void Bullet::updatePosition()
 
 void Bullet::draw() const
 {
-
 	if (m_active)
 	{
+    if (dynamic_cast<Player*>(m_parent))
+      glColor3f(0,1,0);
+    else
+      glColor3f(1,0,0);
     glPushMatrix();
       glTranslatef(m_position.m_x,0,m_position.m_z);
       glRotatef(m_rotation.m_x,0,1,0);

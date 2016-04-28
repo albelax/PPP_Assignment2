@@ -9,6 +9,7 @@
 #include <math.h>
 #include "UtilityFunctions.h"
 #include "Mesh.h"
+#include "Player.h"
 
 class Bullet : public GameObject
 {

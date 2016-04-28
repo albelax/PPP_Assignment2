@@ -1,10 +1,12 @@
 #include "Player.h"
 
 Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_playerMesh) :
-	 GameObject(_position, _rotation, _speed, _active), m_life(_life = 3), m_playerMesh()
+   GameObject(_position, _rotation, _speed, _active), m_playerMesh()
 {
 	m_playerMesh = _playerMesh;
 	m_size = 0.35f;
+  m_life = _life;
+  m_initialLife = _life;
 	m_speed = _speed;
 	m_collisionLimit_x = std::max(std::abs(_playerMesh ->min().m_x),m_playerMesh ->max().m_x)*m_size;
 	m_collisionLimit_z = std::max(std::abs(_playerMesh ->min().m_z),m_playerMesh ->max().m_z)*m_size;
@@ -128,7 +130,7 @@ void Player::updatePosition()
 			{
 				temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
 				temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
-				m_currentSpeed -= 0.002f;
+        m_currentSpeed -= 0.001f;
 			}
 
 			if(m_keyPressed[3] == '0' && m_currentSpeed < 0 && m_previousKeyPressed[2] != '1')
@@ -136,7 +138,7 @@ void Player::updatePosition()
 				temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
 				temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
 
-				m_currentSpeed += 0.002f;
+        m_currentSpeed += 0.001f;
 			}
 			m_position = m_position + temp;
 		}
@@ -153,7 +155,7 @@ void Player::updatePosition()
 
 void Player::draw() const
 {
-	glColor3f(0, 1, 0);
+  glColor3f(0, 1, 0);
 	glPushMatrix();
 		glTranslatef(m_position.m_x,0,m_position.m_z);
 		glRotatef(m_rotation.m_x,0,1,0);
@@ -164,9 +166,6 @@ void Player::draw() const
 
 void Player::checkCollision(bool _collided)
 {
-//	m_position.m_x += std::sin((m_rotation[0]* M_PI)/180)*m_currentSpeed * 5;
-//	m_position.m_z += std::cos((m_rotation[0]* M_PI)/180)*m_currentSpeed * 5;
-//	m_currentSpeed = 0;
 	m_collided = _collided;
 }
 

@@ -12,8 +12,8 @@ GameObject(_position, _rotation, _speed, _active), m_life(_life = 3), m_mesh(),m
 
 void Obstacle::draw() const
 {
-	glPointSize(10);
-	glColor3f(1, 0, 0);
+
+  glColor3f(0.4f, 0.35f, 0.4f);
 	glPushMatrix();
 		glTranslatef(m_position.m_x,0,m_position.m_z);
 		m_mesh->draw(m_size);
