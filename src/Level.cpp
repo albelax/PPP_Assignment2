@@ -184,8 +184,7 @@ void Level::update()
   {
     m_player->updateRotation();
     m_player->updatePosition();
-    std::cout << m_player->life() << std::endl;
-
+    m_player->updatehealthBar();
   }
 
 	std::vector<GameObject*>::iterator it;
@@ -198,7 +197,7 @@ void Level::update()
 		}
 	}
 	Collisions();
-	activateBullets();
+  activateBullets();
 }
 
 void Level::draw() const
@@ -237,7 +236,7 @@ void Level::drawMap() const
 				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 100
 				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 100)
         {
-          glColor3f(0.2f,0.3f,0.6f);
+          glColor4f(0.2f,0.3f,0.6f,1);
           glPushMatrix();
             glTranslatef(x,0,z);
             GLFunctions::cube(m_cellSize, 1, m_cellSize);
@@ -263,21 +262,21 @@ void Level::activateBullets()
 			return;
     }
 
-		for (int i = 0; i < m_objects.size(); ++i)
-		{
-			if((std::abs(m_player->getPosition().m_x - m_objects[i]->getPosition().m_x) < 30
-				&& std::abs(m_player->getPosition().m_z - m_objects[i]->getPosition().m_z) < 30)
-				&& dynamic_cast<Enemy*>(m_objects[i]))
-			{
-				Enemy* temp_enemy = dynamic_cast<Enemy*>(m_objects[i]);
-				//if(temp_enemy->canShoot())
-				//{
-					m_bullets[i].setParent(temp_enemy);
-					m_bullets[i].active(true);
-					//temp_enemy->canShoot(false);
-				//}
-			}
-		}
+    for (int i = 0; i < m_objects.size(); ++i)
+    {
+      if((std::abs(m_player->getPosition().m_x - m_objects[i]->getPosition().m_x) < 30
+        && std::abs(m_player->getPosition().m_z - m_objects[i]->getPosition().m_z) < 30)
+        && dynamic_cast<Enemy*>(m_objects[i]))
+      {
+        Enemy* temp_enemy = dynamic_cast<Enemy*>(m_objects[i]);
+        if(temp_enemy->canShoot())
+        {
+          m_bullets[i].setParent(temp_enemy);
+          m_bullets[i].active(true);
+          temp_enemy->canShoot(false);
+        }
+      }
+    }
   }
 }
 
@@ -357,4 +356,17 @@ void Level::Collisions()
 			}
 		}
 	}
+}
+
+
+void Level::enemyCanShoot()
+{
+  std::vector<GameObject*>::iterator it;
+  for (it = m_objects.begin(); it != m_objects.end(); ++it)
+   {
+    if(Enemy * temp = dynamic_cast<Enemy*>(*it))
+    {
+      temp->canShoot(true);
+    }
+  }
 }

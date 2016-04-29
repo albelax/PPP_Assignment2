@@ -13,6 +13,7 @@ Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _a
 	m_collided = false;
 	//m_shoot = false;
 	m_canShoot = true;
+  m_healthColor = Vec4(0,1,0,0.25f);
 }
 
 
@@ -130,7 +131,7 @@ void Player::updatePosition()
 			{
 				temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
 				temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
-        m_currentSpeed -= 0.001f;
+        m_currentSpeed -= 0.002f;
 			}
 
 			if(m_keyPressed[3] == '0' && m_currentSpeed < 0 && m_previousKeyPressed[2] != '1')
@@ -138,7 +139,7 @@ void Player::updatePosition()
 				temp[0] = -std::sin((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
 				temp[2] = -std::cos((m_lastActiveRotation[0]* M_PI)/180) * m_currentSpeed;
 
-        m_currentSpeed += 0.001f;
+        m_currentSpeed += 0.002f;
 			}
 			m_position = m_position + temp;
 		}
@@ -155,11 +156,15 @@ void Player::updatePosition()
 
 void Player::draw() const
 {
-  glColor3f(0, 1, 0);
+  glColor3f(1, 1, 1);
 	glPushMatrix();
 		glTranslatef(m_position.m_x,0,m_position.m_z);
 		glRotatef(m_rotation.m_x,0,1,0);
-		m_playerMesh->draw(m_size);
+    m_playerMesh->draw(m_size);
+
+    glColor4f(m_healthColor.m_x, m_healthColor.m_y, m_healthColor.m_z, m_healthColor.m_w);
+    glRotatef(90,1,0,0);
+    GLFunctions::sphere(1.2f, 20);
 	glPopMatrix();
 }
 
@@ -169,3 +174,17 @@ void Player::checkCollision(bool _collided)
 	m_collided = _collided;
 }
 
+
+void Player::updatehealthBar()
+{
+  if (m_life == m_initialLife)
+  {
+    m_healthColor.m_x = 0;
+    m_healthColor.m_y = 1;
+  }
+  if (m_healthColor.m_y > 0)
+  {
+    m_healthColor.m_x = (m_initialLife/m_life) - 1;
+    m_healthColor.m_y = 1 - m_healthColor.m_x;
+  }
+}

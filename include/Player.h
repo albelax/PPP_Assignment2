@@ -17,6 +17,7 @@ class Player : public GameObject
 private:
 	Vec4 m_lastActiveRotation;
 	Vec4 m_nextPosition;
+  Vec4 m_healthColor;
 	float m_currentSpeed;
   float m_initialLife;
 	// 0 if the button is currently not pressed, 1 otherwise
@@ -43,6 +44,7 @@ public:
 	void willCollide(bool _willCollide) { m_willCollide = _willCollide; }
 	std::array <char,5> pressedKeys() { return m_keyPressed; }
   void resetLife() { m_life = m_initialLife; }
+  void updatehealthBar();
 };
 
 #endif // PLAYER_H

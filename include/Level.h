@@ -50,6 +50,7 @@ public:
   void activateBullets();
 	void Collisions();
 	Player * getPlayer() { return m_player;}
+  void enemyCanShoot();
 };
 
 #endif // LEVEL_H

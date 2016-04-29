@@ -70,6 +70,8 @@ void Window::glInit()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
 	glMatrixMode(GL_MODELVIEW);
+  glEnable (GL_BLEND);
+  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 //	/glFrontFace(GL_CW);
 	//glEnable(GL_POLYGON_OFFSET_FILL);
 	//glOrtho(-1, 1, -1, 1, -1, 1);

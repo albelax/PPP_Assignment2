@@ -34,6 +34,7 @@ Uint32 ActivateBullets(Uint32 _interval, void * _param)
   if (level != nullptr)
   {
 		level->getPlayer()->canShoot(true);
+    level->enemyCanShoot();
   }
   return _interval;
 }
@@ -90,7 +91,7 @@ int main()
 
     p_rot[0] -= 90;
     GLFunctions::lookAt(Vec4(p_pos[0],25*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
-  //	GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.8f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0],0.5f,p_pos[2]),Vec4(0,1,0));
+    //GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.8f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0],0.5f,p_pos[2]),Vec4(0,1,0));
 
     glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -98,7 +99,7 @@ int main()
 		level.draw();
 
 		SDL_GL_SwapWindow(mainWindow.getWindow());
-		//glFinish();
+    glFinish();
 	}
 	return 0;
 }
