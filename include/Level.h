@@ -12,6 +12,7 @@
 #include "Obstacle.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Mesh.h"
 #include "EnemySatellite.h"
 #include <typeinfo>
 
@@ -38,6 +39,7 @@ private:
 	std::vector<EnemySatellite> m_Satellites;
 	std::vector<Enemy> m_enemies;
 	std::vector<GameObject*> m_objects;
+	std::vector<Mesh> m_meshes;
 	void generateMap();
 	void loadMap();
 public:

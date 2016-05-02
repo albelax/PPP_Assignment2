@@ -102,6 +102,16 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 	{
 		m_objects.push_back(&m_obstacles[i]);
 	}
+
+	int w = m_mapWidth/6;
+	int h = m_mapHeight/6;
+	for (int i=  0; i < w; ++i)
+	{
+		for (int j = 0; j < h; ++j)
+		{
+			m_meshes.push_back( Mesh("models/level/" + std::to_string(i) + std::to_string(j) + ".obj","level"));
+		}
+	}
 }
 
 void Level::generateMap()
@@ -222,32 +232,59 @@ void Level::draw() const
 
 void Level::drawMap() const
 {
-  float x = m_cellSize/2;
-  float z = m_cellSize/2;
+//  float x = m_cellSize/2;
+//  float z = m_cellSize/2;
 
-  glColor3f(1, 0, 0);
+//  glColor3f(1, 0, 0);
 
-  for (int i = 0; i < m_map.size(); ++i)
-  {
-    for (int j = 0; j < m_map[i].size(); ++j)
-    {
-      if ( m_map[i][j] == '0' )
-      {
-				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 100
-				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 100)
-        {
-          glColor4f(0.2f,0.3f,0.6f,1);
-          glPushMatrix();
-            glTranslatef(x,0,z);
-            GLFunctions::cube(m_cellSize, 1, m_cellSize);
-          glPopMatrix();
-        }
-      }
-      x += m_cellSize;
-    }
-    z += m_cellSize;
-    x = m_cellSize/2;
-  }
+//  for (int i = 0; i < m_map.size(); ++i)
+//  {
+//    for (int j = 0; j < m_map[i].size(); ++j)
+//    {
+//      if ( m_map[i][j] == '0' )
+//      {
+//				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 100
+//				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 100)
+//        {
+//          glColor4f(0.2f,0.3f,0.6f,1);
+//          glPushMatrix();
+//            glTranslatef(x,0,z);
+//            GLFunctions::cube(m_cellSize, 1, m_cellSize);
+//          glPopMatrix();
+//        }
+//      }
+//      x += m_cellSize;
+//    }
+//    z += m_cellSize;
+//    x = m_cellSize/2;
+//  }
+	int x = m_cellSize*3;
+	int z = m_cellSize*3;
+
+	for (int i = 0; i < m_meshes.size(); ++i)
+	{
+			if (std::abs(m_player->getPosition().m_x - x) < 100
+			&& std::abs(m_player->getPosition().m_z - z) < 100)
+			{
+				//glColor4f(0.2f,0.3f,0.6f,1);
+					glColor3f(0.623529f, 0.698039f, 0.65098f);
+				glPushMatrix();
+					glTranslatef(x,0,z);
+					m_meshes[i].draw(m_cellSize);
+				glPopMatrix();
+			}
+		if ((i+1) % 5 == 0)
+		{
+			x = m_cellSize*3;
+			z += m_cellSize*6;
+			//std::cout <<i+1 << std::endl;
+		}
+		else
+		{
+			x += m_cellSize*6;
+			//std::cout <<"1" << std::endl;
+		}
+	}
 }
 
 void Level::activateBullets()

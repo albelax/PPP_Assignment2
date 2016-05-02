@@ -147,8 +147,8 @@ void Player::updatePosition()
 	}
 	else
 	{
-		m_position.m_x += std::sin((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed/0.5f;
-		m_position.m_z += std::cos((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed/0.5f;
+		m_position.m_x += std::sin((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed*2;
+		m_position.m_z += std::cos((m_lastActiveRotation[0]* M_PI)/180)*m_currentSpeed*2;
 		m_currentSpeed = 0;
 		m_collided = false;
 	}
@@ -163,8 +163,8 @@ void Player::draw() const
     m_playerMesh->draw(m_size);
 
     glColor4f(m_healthColor.m_x, m_healthColor.m_y, m_healthColor.m_z, m_healthColor.m_w);
-    glRotatef(90,1,0,0);
-    GLFunctions::sphere(1.2f, 20);
+
+		GLFunctions::sphere(1.2f, 20);
 	glPopMatrix();
 }
 
