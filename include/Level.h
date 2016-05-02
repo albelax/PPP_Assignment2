@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "Mesh.h"
 #include "EnemySatellite.h"
+#include "Particles.h"
 #include <typeinfo>
 
 #ifdef __APPLE__
@@ -40,6 +41,7 @@ private:
 	std::vector<Enemy> m_enemies;
 	std::vector<GameObject*> m_objects;
 	std::vector<Mesh> m_meshes;
+	Particles m_particles;
 	void generateMap();
 	void loadMap();
 public:
@@ -52,7 +54,8 @@ public:
   void activateBullets();
 	void Collisions();
 	Player * getPlayer() { return m_player;}
-  void enemyCanShoot();
+	void enemyCanShoot();
+	Particles * getParticles() {return &m_particles;}
 };
 
 #endif // LEVEL_H

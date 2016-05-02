@@ -19,7 +19,9 @@ SOURCES += \
 		src/Level.cpp \
     		src/Bullet.cpp \
     		src/Enemy.cpp \
-    		src/EnemySatellite.cpp
+    		src/EnemySatellite.cpp \
+    src/Particles.cpp \
+		src/Particle.cpp
 
 CONFIG+=opengl
 # turn on c++11
@@ -35,7 +37,9 @@ HEADERS += \
 		include/Level.h \
 		include/Bullet.h \
 		include/Enemy.h \
-		include/EnemySatellite.h
+		include/EnemySatellite.h \
+		include/Particles.h \
+    include/Particle.h
 
 
 

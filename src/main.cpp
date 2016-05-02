@@ -26,6 +26,7 @@ Uint32 Update(Uint32 _interval, void * _param)
   if (level != nullptr)
   {
 		level->update();
+
   }
 	return _interval;
 }
@@ -40,6 +41,19 @@ Uint32 ActivateBullets(Uint32 _interval, void * _param)
     level->enemyCanShoot();
   }
   return _interval;
+}
+
+Uint32 DeactivateParticles(Uint32 _interval, void * _param)
+{
+	Level * level = (Level*)_param;
+	if (level != nullptr)
+	{
+		if (level->getParticles() != nullptr)
+		{
+			level->getParticles()->deactivateParticles();
+		}
+	}
+	return _interval;
 }
 
 int main()
@@ -61,11 +75,12 @@ int main()
 	bool quit = false;
 	SDL_Event event;
 
-  SDL_TimerID update = SDL_AddTimer(10, Update, &level);
-  SDL_TimerID activateBullets = SDL_AddTimer(250, ActivateBullets, &level);
-
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
+
+	SDL_TimerID update = SDL_AddTimer(10, Update, &level);
+	SDL_TimerID activateBullets = SDL_AddTimer(250, ActivateBullets, &level);
+	SDL_TimerID deactivateParticles = SDL_AddTimer(10000, DeactivateParticles, &level);
 
 	while (quit != true)
 	{
@@ -76,6 +91,7 @@ int main()
         quit = true;
         SDL_RemoveTimer(update);
         SDL_RemoveTimer(activateBullets);
+				SDL_RemoveTimer(deactivateParticles);
       }
 			else if (event.type == SDL_WINDOWEVENT)
 			{
@@ -92,7 +108,7 @@ int main()
 		GLFunctions::lookAt(Vec4(p_pos[0],35*(mainWindow.getWidth()/mainWindow.getHeight()),p_pos[2]+0.1f, 1),Vec4(p_pos[0],0,p_pos[2]),Vec4(0,1,0));
 		//GLFunctions::lookAt(Vec4(p_pos[0] + std::cos((p_rot[0] * M_PI)/180), 0.8f, p_pos[2] - std::sin((p_rot[0]* M_PI)/180), 1),Vec4(p_pos[0],0.5f,p_pos[2]),Vec4(0,1,0));
 
-    glClearColor(0, 0, 0, 1);
+		glClearColor(0.5f, 0.5f, 0.5f, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		level.draw();

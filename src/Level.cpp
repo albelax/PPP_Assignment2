@@ -1,19 +1,19 @@
 #include "Level.h"
 
-Level::Level(int _width, int _height, int _obstacles, Player* _player) :
-	m_mapWidth(_width),m_mapHeight(_height),m_ObstacleNumber(_obstacles)
-{
-	m_map.resize(m_mapHeight);
-	std::vector<std::vector<char>>::iterator it;
-	for (it = m_map.begin(); it != m_map.end(); ++it)
-	{
-		(*it).resize(m_mapWidth);
-	}
-	generateMap();
-}
+//Level::Level(int _width, int _height, int _obstacles, Player* _player) :
+//	m_mapWidth(_width),m_mapHeight(_height),m_ObstacleNumber(_obstacles)
+//{
+//	m_map.resize(m_mapHeight);
+//	std::vector<std::vector<char>>::iterator it;
+//	for (it = m_map.begin(); it != m_map.end(); ++it)
+//	{
+//		(*it).resize(m_mapWidth);
+//	}
+//	generateMap();
+//}
 
 
-Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes, int _cellSize)
+Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes, int _cellSize) : m_particles(8, _meshes[1])
 {
 	m_player = _player;
 	m_position = Vec4(0,0,0,1);
@@ -112,6 +112,7 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 			m_meshes.push_back( Mesh("models/level/" + std::to_string(i) + std::to_string(j) + ".obj","level"));
 		}
 	}
+
 }
 
 void Level::generateMap()
@@ -208,6 +209,7 @@ void Level::update()
 	}
 	Collisions();
   activateBullets();
+	m_particles.updateParticles();
 }
 
 void Level::draw() const
@@ -227,37 +229,12 @@ void Level::draw() const
       m_bullets[i].draw();
   }
   drawMap();
+	m_particles.draw();
 }
 
 
 void Level::drawMap() const
 {
-//  float x = m_cellSize/2;
-//  float z = m_cellSize/2;
-
-//  glColor3f(1, 0, 0);
-
-//  for (int i = 0; i < m_map.size(); ++i)
-//  {
-//    for (int j = 0; j < m_map[i].size(); ++j)
-//    {
-//      if ( m_map[i][j] == '0' )
-//      {
-//				if (std::abs(m_player->getPosition().m_x - j*m_cellSize) < 100
-//				 && std::abs(m_player->getPosition().m_z - i*m_cellSize) < 100)
-//        {
-//          glColor4f(0.2f,0.3f,0.6f,1);
-//          glPushMatrix();
-//            glTranslatef(x,0,z);
-//            GLFunctions::cube(m_cellSize, 1, m_cellSize);
-//          glPopMatrix();
-//        }
-//      }
-//      x += m_cellSize;
-//    }
-//    z += m_cellSize;
-//    x = m_cellSize/2;
-//  }
 	int x = m_cellSize*3;
 	int z = m_cellSize*3;
 
@@ -266,7 +243,6 @@ void Level::drawMap() const
 			if (std::abs(m_player->getPosition().m_x - x) < 100
 			&& std::abs(m_player->getPosition().m_z - z) < 100)
 			{
-				//glColor4f(0.2f,0.3f,0.6f,1);
 					glColor3f(0.623529f, 0.698039f, 0.65098f);
 				glPushMatrix();
 					glTranslatef(x,0,z);
@@ -277,12 +253,10 @@ void Level::drawMap() const
 		{
 			x = m_cellSize*3;
 			z += m_cellSize*6;
-			//std::cout <<i+1 << std::endl;
 		}
 		else
 		{
 			x += m_cellSize*6;
-			//std::cout <<"1" << std::endl;
 		}
 	}
 }
@@ -351,6 +325,7 @@ void Level::Collisions()
 					if((*it)->life() == 0)
           {
             // delete the enemy
+						m_particles.activateParticles((*it)->getPosition());
 						m_objects.erase(it);
             // restore player health
             m_player->resetLife();

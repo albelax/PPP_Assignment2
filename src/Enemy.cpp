@@ -14,18 +14,7 @@ Enemy::Enemy(Vec4 const _position, Vec4 const _rotation, float _speed, bool _act
 
 void Enemy::updatePosition()
 {
-//	float x_direction = 0;
-//	float z_direction = 0;
 
-//	x_direction = -std::sin((m_rotation[0]* M_PI)/180);
-//	z_direction = -std::cos((m_rotation[0]* M_PI)/180);
-
-//	if (std::abs(m_player->getPosition().m_x - m_position.m_x) > 2
-//	|| std::abs(m_player->getPosition().m_z - m_position.m_z) > 2)
-//	{
-//		m_position.m_x += x_direction*m_speed;
-//		m_position.m_z += z_direction*m_speed;
-//	}
 }
 
 void Enemy::updateRotation()
