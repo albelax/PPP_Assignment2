@@ -13,6 +13,9 @@
 	#include <GL/glu.h>
 #endif
 
+/// \class Window
+/// \brief initializes OpenGL and SDL and creates a window
+
 class Window
 {
 private:

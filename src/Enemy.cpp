@@ -12,13 +12,19 @@ Enemy::Enemy(Vec4 const _position, Vec4 const _rotation, float _speed, bool _act
 	m_collisionLimit_z = std::max(std::abs(m_mesh->min().m_z), m_mesh->max().m_z)*m_size;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Enemy::updatePosition()
 {
 
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Enemy::updateRotation()
 {
+	/// updates the rotation of the enemy making sure it will face the player
+
 	float x = m_player->getPosition().m_x - m_position.m_x;
 	float z = m_player->getPosition().m_z - m_position.m_z;
 
@@ -32,8 +38,11 @@ void Enemy::updateRotation()
 
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Enemy::draw() const
 {
+	/// draws the enemy
 	glColor3f(1.0f, 0, 0);
 	glPushMatrix();
 		glTranslatef(m_position.m_x, 0, m_position.m_z);
@@ -41,3 +50,5 @@ void Enemy::draw() const
 		m_mesh->draw(m_size);
 	glPopMatrix();
 }
+
+//----------------------------------------------------------------------------------------------------------------------

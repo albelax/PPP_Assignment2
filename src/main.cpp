@@ -45,6 +45,7 @@ Uint32 ActivateBullets(Uint32 _interval, void * _param)
 
 Uint32 DeactivateParticles(Uint32 _interval, void * _param)
 {
+	// deactivate the particles
 	Level * level = (Level*)_param;
 	if (level != nullptr)
 	{
@@ -58,6 +59,7 @@ Uint32 DeactivateParticles(Uint32 _interval, void * _param)
 
 int main()
 {
+
 	int width = 800;
 	int height = 600;
 	int cellSize = 11;
@@ -68,6 +70,8 @@ int main()
   meshes.push_back(&asteroidMesh);
   Mesh bulletMesh("models/bullet.obj", "bullet");
   meshes.push_back(&bulletMesh);
+	Mesh base("models/base.obj", "base");
+	meshes.push_back(&base);
 
 	Player mainPlayer(Vec4(cellSize*4,0,cellSize*27,0), Vec4(0,0,0,0), 0.3f, true, 20, &shipMesh);
 	Level level("map.txt", &mainPlayer, meshes, cellSize);
@@ -75,12 +79,15 @@ int main()
 	bool quit = false;
 	SDL_Event event;
 
+	// create a window
 	Window mainWindow(width,height);
 	glViewport(0,0,width,height);
 
+	// callbacks
 	SDL_TimerID update = SDL_AddTimer(10, Update, &level);
 	SDL_TimerID activateBullets = SDL_AddTimer(250, ActivateBullets, &level);
 	SDL_TimerID deactivateParticles = SDL_AddTimer(10000, DeactivateParticles, &level);
+
 
 	while (quit != true)
 	{

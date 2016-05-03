@@ -14,13 +14,16 @@
 #include "Player.h"
 #include "Enemy.h"
 
+
+/// \class EnemySatellite
+/// \brief Enemies that rotate around a defined point
+
 class EnemySatellite : public Enemy
 {
 	Vec4 m_Center;
 public:
 	EnemySatellite(Vec4 _position, Vec4 _center, Mesh *_mesh, Player * _player, float _speed, bool _active, int _life);
 	void updatePosition() override;
-	void updateRotation() override;
 };
 
 #endif // ENEMYSATELLITE_H

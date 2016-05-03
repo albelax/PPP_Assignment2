@@ -3,6 +3,9 @@
 
 #include "Vec4.h"
 
+/// \class GameObject
+/// \brief this class is the base class for most of the objects in the scene
+
 class GameObject
 {
 protected:

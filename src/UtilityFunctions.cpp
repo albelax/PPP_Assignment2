@@ -31,6 +31,8 @@ std::vector<std::string> utilityFunctions::split(std::string _stringIn, char _sp
 	return retVector;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 std::vector<std::string> utilityFunctions::loadFromFile(std::string _fileName)
 {
 	/*
@@ -62,6 +64,8 @@ std::vector<std::string> utilityFunctions::loadFromFile(std::string _fileName)
 	return Lines;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 std::vector<std::array<float,3>> utilityFunctions::getVertices(std::vector<std::string> _vectorIn)
 {
 	std::vector<std::array<float,3>> vertices;
@@ -86,7 +90,7 @@ std::vector<std::array<float,3>> utilityFunctions::getVertices(std::vector<std::
 	return vertices;
 }
 
-
+//----------------------------------------------------------------------------------------------------------------------
 
 std::vector<std::array<float,3>> utilityFunctions::getNormals(std::vector<std::string> _vectorIn)
 {
@@ -112,6 +116,7 @@ std::vector<std::array<float,3>> utilityFunctions::getNormals(std::vector<std::s
 	return normals;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 std::vector<std::vector<std::string>> utilityFunctions::getFaces(const std::vector<std::string> _vectorIn)
 {
@@ -137,6 +142,8 @@ std::vector<std::vector<std::string>> utilityFunctions::getFaces(const std::vect
 	return faces;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void utilityFunctions::DrawFaces(const std::vector<std::array<float,3>> _vertices, const std::vector<std::array<float,3>> _normals, std::vector<std::vector<std::string>> _faces, float size)
 {
 	std::vector<std::string> tempFace;
@@ -155,6 +162,7 @@ void utilityFunctions::DrawFaces(const std::vector<std::array<float,3>> _vertice
 	glEnd();
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 std::vector<char> utilityFunctions::generateObstacles(const int _x, const int _z)
 {
@@ -172,6 +180,7 @@ std::vector<char> utilityFunctions::generateObstacles(const int _x, const int _z
 	return map;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void utilityFunctions::DrawSimpleLevel()
 {
@@ -187,6 +196,8 @@ void utilityFunctions::DrawSimpleLevel()
 		}
 	}
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void utilityFunctions::DrawLevel(const std::vector<char> _map, const int _x)
 {
@@ -213,4 +224,4 @@ void utilityFunctions::DrawLevel(const std::vector<char> _map, const int _x)
 	}
 }
 
-
+//----------------------------------------------------------------------------------------------------------------------

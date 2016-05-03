@@ -4,12 +4,17 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <math.h>
 #include "GameObject.h"
 #include "GLFunctions.h"
-#include <math.h>
 #include "UtilityFunctions.h"
 #include "Mesh.h"
 #include "Player.h"
+
+
+/// \class Bullet
+/// \brief bullets that can be shot by players or enemies
+
 
 class Bullet : public GameObject
 {

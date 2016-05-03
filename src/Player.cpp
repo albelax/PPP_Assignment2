@@ -16,8 +16,10 @@ Player::Player(Vec4 const _position, Vec4 const _rotation, float _speed, bool _a
   m_healthColor = Vec4(0,1,0,0.25f);
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
-/// input is the function that takes the input and stores them into a member array
+///\fn input
+/// \brief input is the function that takes the input and stores them into a member array
 void Player::input(SDL_Event & _event)
 {
 	m_previousKeyPressed = m_keyPressed;
@@ -48,6 +50,10 @@ void Player::input(SDL_Event & _event)
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
+///\fn updateRotation
+///\brief updates the rotation of the player
 void Player::updateRotation()
 {
 	/* updates the rotation of the player based on the key pressed
@@ -82,7 +88,10 @@ void Player::updateRotation()
 		m_lastActiveRotation = m_rotation;
 }
 
-/// UpdatePosition gets a member array containing the input previously stored and updates the player's position
+//----------------------------------------------------------------------------------------------------------------------
+
+///\fn updatePosition
+/// \brief UpdatePosition gets a member array containing the input previously stored and updates the player's position
 void Player::updatePosition()
 {
 	/* the vector has to be setthis way,
@@ -154,6 +163,8 @@ void Player::updatePosition()
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Player::draw() const
 {
   glColor3f(1, 1, 1);
@@ -162,18 +173,20 @@ void Player::draw() const
 		glRotatef(m_rotation.m_x,0,1,0);
     m_playerMesh->draw(m_size);
 
-    glColor4f(m_healthColor.m_x, m_healthColor.m_y, m_healthColor.m_z, m_healthColor.m_w);
+		glColor4f(m_healthColor.m_x, m_healthColor.m_y, m_healthColor.m_z, m_healthColor.m_w);
 
 		GLFunctions::sphere(1.2f, 20);
 	glPopMatrix();
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Player::checkCollision(bool _collided)
 {
 	m_collided = _collided;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Player::updatehealthBar()
 {
@@ -188,3 +201,5 @@ void Player::updatehealthBar()
     m_healthColor.m_y = 1 - m_healthColor.m_x;
   }
 }
+
+//----------------------------------------------------------------------------------------------------------------------

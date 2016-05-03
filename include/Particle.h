@@ -8,6 +8,9 @@
 #include "GLFunctions.h"
 #include "Mesh.h"
 
+/// \class Particle
+/// \brief is a single element that will move in the same direction at constant speed
+
 class Particle
 {
 private:

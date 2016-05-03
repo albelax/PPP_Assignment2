@@ -1,18 +1,5 @@
 #include "Level.h"
 
-//Level::Level(int _width, int _height, int _obstacles, Player* _player) :
-//	m_mapWidth(_width),m_mapHeight(_height),m_ObstacleNumber(_obstacles)
-//{
-//	m_map.resize(m_mapHeight);
-//	std::vector<std::vector<char>>::iterator it;
-//	for (it = m_map.begin(); it != m_map.end(); ++it)
-//	{
-//		(*it).resize(m_mapWidth);
-//	}
-//	generateMap();
-//}
-
-
 Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes, int _cellSize) : m_particles(8, _meshes[1])
 {
 	m_player = _player;
@@ -22,7 +9,7 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 	int bullet;
 	for (int i = 0; i < _meshes.size(); ++i)
 	{
-		if(_meshes[i]->name() == "obstacle")
+		if(_meshes[i]->name() == "base")
 			obstacle = i;
 		if(_meshes[i]->name() == "bullet")
 			bullet = i;
@@ -115,70 +102,12 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 
 }
 
-void Level::generateMap()
-{
-	srand((int)time(NULL));
-	std::vector<int> taken;
-
-	int obstacles = m_ObstacleNumber;
-	while (obstacles > 0)
-	{
-		int w = rand()%4;
-		int h = rand()%4;
-		int x = rand()%m_mapWidth;
-		int y = rand()%m_mapHeight;
-		bool patchFree = true;
-
-		if (w < 3)
-			w = 3;
-		if (h < 3)
-			h = 3;
-		if ( x + w > m_mapWidth)
-			x -= w;
-		if ( y + h > m_mapWidth)
-			y -= h;
-
-		if (taken.size() == 0)
-		{
-			taken.push_back(x+w);
-			taken.push_back(y+h);
-		}
-
-		for (int i = 0; i < taken.size(); i+=2)
-		{
-			if (x+w == i || y+h == i+1)
-				patchFree = false;
-		}
-
-		if(patchFree)
-		{
-			for (int i = 0; i < h; ++i)
-			{
-				for (int j = 0; j < w; ++j)
-				{
-					m_map[x+j][y+i] = '1';
-				}
-			}
-			--obstacles;
-		}
-	}
-	std::vector<std::vector<char>>::iterator it;
-	for (it = m_map.begin(); it != m_map.end(); ++it)
-	{
-		std::vector<char>::iterator it_2;
-		for (it_2 = (*it).begin(); it_2 != (*it).end(); ++it_2)
-		{
-			if ( (*it_2) != '1' )
-				(*it_2) = '0';
-			std::cout << (*it_2) << " ";
-		}
-		std::cout << std::endl;
-	}
-}
-
+//----------------------------------------------------------------------------------------------------------------------
 
 bool Level::wallCollision(GameObject * _gameObject, Vec4 _pos)
 {
+	/// checks collisions between an object and the walls of level by checking the position of the object and the index in the map
+
 	int xPositive = static_cast<int>((_pos.m_x + _gameObject->getCollisionLimit_x())/(m_cellSize));
 	int zPositive = static_cast<int>((_pos.m_z + _gameObject->getCollisionLimit_z())/(m_cellSize));
 	int xNegative = static_cast<int>((_pos.m_x - _gameObject->getCollisionLimit_x())/(m_cellSize));
@@ -189,8 +118,11 @@ bool Level::wallCollision(GameObject * _gameObject, Vec4 _pos)
 	return false;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Level::update()
 {
+	/// updates all the objects on the screen
   if(m_player != nullptr)
   {
     m_player->updateRotation();
@@ -212,8 +144,11 @@ void Level::update()
 	m_particles.updateParticles();
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Level::draw() const
 {
+	/// draws all the objects
   m_player->draw();
 
 	for (int i = 0; i < m_objects.size(); ++i)
@@ -232,9 +167,12 @@ void Level::draw() const
 	m_particles.draw();
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Level::drawMap() const
 {
+	/// draws the level
+
 	int x = m_cellSize*3;
 	int z = m_cellSize*3;
 
@@ -261,8 +199,11 @@ void Level::drawMap() const
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Level::activateBullets()
 {
+	/// activates the bullets for enemies and player
 	for(int i = 0; i< m_bullets.size(); ++i)
   {
 		if(m_bullets[i].active() == false && m_player->canShoot() && m_player->pressedKeys()[4] == '1')
@@ -291,8 +232,12 @@ void Level::activateBullets()
   }
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Level::Collisions()
 {
+	/// checks for all the collisions
+
 	std::vector<GameObject*>::iterator it;
 
 	// collision detection between enemies and player, and enemies and bullets
@@ -370,9 +315,11 @@ void Level::Collisions()
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Level::enemyCanShoot()
 {
+	/// determines if the enemy can shoot
   std::vector<GameObject*>::iterator it;
   for (it = m_objects.begin(); it != m_objects.end(); ++it)
    {
@@ -382,3 +329,5 @@ void Level::enemyCanShoot()
     }
   }
 }
+
+//----------------------------------------------------------------------------------------------------------------------

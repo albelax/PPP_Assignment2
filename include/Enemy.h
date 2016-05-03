@@ -13,6 +13,10 @@
 #include "Mesh.h"
 #include "Player.h"
 
+
+/// \class Enemy
+/// \brief gameobjects hostile to the player
+
 class Enemy : public GameObject
 {
 protected:

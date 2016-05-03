@@ -12,6 +12,9 @@
 #include "UtilityFunctions.h"
 #include "Mesh.h"
 
+/// \class Obstacle
+/// \brief inherits from GameObject and is a static element in the scene
+
 class Obstacle : public GameObject
 {
 private:

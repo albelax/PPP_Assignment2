@@ -11,8 +11,11 @@ Bullet::Bullet(const Vec4 _position, const Vec4 _rotation, float _speed, bool _a
   m_collisionLimit_z = std::max(std::abs(_mesh ->min().m_z),m_mesh ->max().m_z)*m_size;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Bullet::active(bool const _active)
 {
+	/// activates a bullet and sets position and rotation as the one of the objects that shoots the bullet
 	if (m_active == false)
 	{
 		m_rotation = m_parent->getRotation();
@@ -21,8 +24,11 @@ void Bullet::active(bool const _active)
 	m_active = _active;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Bullet::updatePosition()
 {
+	/// updates the position of the bullet
 	if(m_active)
 	{
 		 m_position.m_x = m_position.m_x -std::sin((m_rotation[0]* M_PI)/180) * m_speed;
@@ -30,8 +36,11 @@ void Bullet::updatePosition()
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Bullet::draw() const
 {
+	/// draws the bullet
 	if (m_active)
 	{
     if (dynamic_cast<Player*>(m_parent))
@@ -45,3 +54,5 @@ void Bullet::draw() const
     glPopMatrix();
 	}
 }
+
+//----------------------------------------------------------------------------------------------------------------------

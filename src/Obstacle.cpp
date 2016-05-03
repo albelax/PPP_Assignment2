@@ -10,12 +10,15 @@ GameObject(_position, _rotation, _speed, _active), m_life(_life = 3), m_mesh(),m
 	m_collisionLimit_z = m_mesh ->max().m_z*m_size;
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Obstacle::draw() const
 {
-
   glColor3f(0.4f, 0.35f, 0.4f);
 	glPushMatrix();
 		glTranslatef(m_position.m_x,0,m_position.m_z);
 		m_mesh->draw(m_size);
 	glPopMatrix();
 }
+
+//----------------------------------------------------------------------------------------------------------------------

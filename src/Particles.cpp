@@ -10,6 +10,8 @@ Particles::Particles(int _particles, Mesh * _mesh)
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Particles::activateParticles(Vec4 _position)
 {
 	float currentRotation = 0;
@@ -22,6 +24,8 @@ void Particles::activateParticles(Vec4 _position)
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Particles::updateParticles()
 {
 	for (int i = 0; i < m_particles.size(); ++i)
@@ -29,6 +33,8 @@ void Particles::updateParticles()
 		m_particles[i].update();
 	}
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 void Particles::draw() const
 {
@@ -38,6 +44,7 @@ void Particles::draw() const
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Particles::deactivateParticles()
 {
@@ -46,3 +53,5 @@ void Particles::deactivateParticles()
 		m_particles[i].deactivate();
 	}
 }
+
+//----------------------------------------------------------------------------------------------------------------------

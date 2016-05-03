@@ -25,6 +25,9 @@
 	#include <GL/glu.h>
 #endif
 
+/// \class Level
+/// \brief contains most objects, it is basically a "master class", which was useful to manage timers
+
 class Level
 {
 private:
@@ -42,10 +45,8 @@ private:
 	std::vector<GameObject*> m_objects;
 	std::vector<Mesh> m_meshes;
 	Particles m_particles;
-	void generateMap();
 	void loadMap();
 public:
-	Level(int _height, int _width, int _obstacles, Player* _player);
 	Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes, int _cellSize);
   void drawMap() const;
 	void draw() const;

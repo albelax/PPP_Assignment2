@@ -17,6 +17,9 @@
 #include "GLFunctions.h"
 #include "UtilityFunctions.h"
 
+/// \class Mesh
+/// \brief contains the data imported from a .OBJ file
+
 class Mesh
 {
 private:

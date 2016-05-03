@@ -19,6 +19,9 @@
 #include <random>
 #include "GLFunctions.h"
 
+/// \class UtilityFunctions
+/// \brief is a bundle of functions that helped me in the developement process
+
 class utilityFunctions
 {
 public:

@@ -12,6 +12,9 @@
 #include "UtilityFunctions.h"
 #include "Mesh.h"
 
+/// \class Player
+/// \brief is an Object controlled by a player
+///
 class Player : public GameObject
 {
 private:

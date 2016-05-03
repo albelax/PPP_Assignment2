@@ -10,6 +10,9 @@
 #include "Mesh.h"
 #include <Particle.h>
 
+/// \class Particles
+/// \brief handles the activation of multiple Particle objects
+
 class Particles
 {
 private:

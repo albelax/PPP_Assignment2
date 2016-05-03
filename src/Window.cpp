@@ -22,6 +22,8 @@ Window::Window(const int _width, const int _height)
 	glInit();
 }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 void Window::setWindowSize(const int &_width, const int &_height)
 {
 	m_width = _width;
@@ -31,8 +33,9 @@ void Window::setWindowSize(const int &_width, const int &_height)
   gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 100.0f);
   glViewport(0,0,m_width,m_height);
 	glMatrixMode(GL_MODELVIEW);
-
 }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 SDL_GLContext Window::createContext()
 {
@@ -47,6 +50,7 @@ SDL_GLContext Window::createContext()
 	return SDL_GL_CreateContext(m_window);
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 
 void Window::glInit()
 {
@@ -61,7 +65,6 @@ void Window::glInit()
 	glLoadIdentity();
 	glViewport(0,0,m_width,m_height);
 
-	//GLFunctions::perspective(45,float(1024/720),0.01,500);
   gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 100.0f); // 10 if topdown
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -72,9 +75,6 @@ void Window::glInit()
 	glMatrixMode(GL_MODELVIEW);
   glEnable (GL_BLEND);
   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//	/glFrontFace(GL_CW);
-	//glEnable(GL_POLYGON_OFFSET_FILL);
-	//glOrtho(-1, 1, -1, 1, -1, 1);
-	//glLoadIdentity();
-	//glOrtho(0, width, 0, height, -1, 1);
 }
+
+//----------------------------------------------------------------------------------------------------------------------
