@@ -1,0 +1,48 @@
+
+body 
+{
+	overflow: hidden;
+    background-color:#454545;
+    font-family:helvetica;
+}  
+
+textarea
+{
+    background-color:#1A1A1A;
+	outline: none;
+    color:#efefef;
+	font-size: 14px;
+	font-family: monospace;
+	resize: vertical;
+	height: 30px;
+	
+	border: none;
+	border: width 10;
+	border-bottom: thick solid #000000;
+	padding-bottom: 0px;
+}
+    
+.colorText
+{
+	border-top: thick solid #000000;
+}
+
+.node 
+{
+    position: absolute;
+    margin-left: 1em;
+    font-size: 12px;
+    border-radius: 10px;
+    /*border-width: 0.5px;*/
+    background: #454545;
+    border: thin solid #000000;
+    display: inline-block;
+    /*color:#efefef;*/
+    /*width: 150px;*/
+    /*height: 150px; */
+}
+
+.node .ui-selected 
+{ 
+    background: #F39814; color: white;
+}
