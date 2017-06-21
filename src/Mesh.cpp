@@ -1,5 +1,6 @@
 #include "Mesh.h"
 
+
 Mesh::Mesh()
 {
 
@@ -9,7 +10,7 @@ Mesh::Mesh()
 
 Mesh::Mesh(std::string _address, std::string _name)
 {
-  m_name = _name;
+	m_name = _name;
 	std::vector<float> tempVertices;
 	std::vector<float> tempNormals;
 	std::vector<std::string> tempFaces;
@@ -20,6 +21,8 @@ Mesh::Mesh(std::string _address, std::string _name)
 	Source.open(_address);
 	Source.seekg(0, std::ios::end); // starts from the beginning and goes to the end of the file to know the lenght of it
 	int len = (int)Source.tellg();
+	//std::cout <<"end " << Source.end <<" "<< (int)Source.tellg()<< '\n';
+
 	Source.seekg(0);
 
 	m_minX = 500;
@@ -31,6 +34,7 @@ Mesh::Mesh(std::string _address, std::string _name)
 	while (len > 0)
 	{
 		getline(Source, line);
+
 		if (line != "")
 		{
 			tempData = utilityFunctions::split(line);
@@ -61,18 +65,18 @@ Mesh::Mesh(std::string _address, std::string _name)
 					m_normals.push_back(tempNormals[((std::stoi(tempFaces[2])-1)*3)+1]);
 					m_normals.push_back(tempNormals[((std::stoi(tempFaces[2])-1)*3)+2]);
 
-						if (tempVertices[(std::stoi(tempFaces[0])-1)*3] < m_minX)
-							m_minX = tempVertices[(std::stoi(tempFaces[0])-1)*3];
-						else if (tempVertices[(std::stoi(tempFaces[0])-1)*3] > m_maxX)
-							m_maxX = tempVertices[(std::stoi(tempFaces[0])-1)*3];
-						if (tempVertices[((std::stoi(tempFaces[0])-1)*3)+1] < m_minY)
-							m_minY = tempVertices[((std::stoi(tempFaces[0])-1)*3)+1];
-						else if (tempVertices[((std::stoi(tempFaces[0])-1)*3)+1] > m_maxY)
-							m_maxY = tempVertices[((std::stoi(tempFaces[0])-1)*3)+1];
-						if(tempVertices[((std::stoi(tempFaces[0])-1)*3)+2] < m_minZ)
-							m_minZ = tempVertices[((std::stoi(tempFaces[0])-1)*3)+2];
-						else if(tempVertices[((std::stoi(tempFaces[0])-1)*3)+2] > m_maxZ)
-							m_maxZ = tempVertices[((std::stoi(tempFaces[0])-1)*3)+2];
+					if (tempVertices[(std::stoi(tempFaces[0])-1)*3] < m_minX)
+						m_minX = tempVertices[(std::stoi(tempFaces[0])-1)*3];
+					else if (tempVertices[(std::stoi(tempFaces[0])-1)*3] > m_maxX)
+						m_maxX = tempVertices[(std::stoi(tempFaces[0])-1)*3];
+					if (tempVertices[((std::stoi(tempFaces[0])-1)*3)+1] < m_minY)
+						m_minY = tempVertices[((std::stoi(tempFaces[0])-1)*3)+1];
+					else if (tempVertices[((std::stoi(tempFaces[0])-1)*3)+1] > m_maxY)
+						m_maxY = tempVertices[((std::stoi(tempFaces[0])-1)*3)+1];
+					if(tempVertices[((std::stoi(tempFaces[0])-1)*3)+2] < m_minZ)
+						m_minZ = tempVertices[((std::stoi(tempFaces[0])-1)*3)+2];
+					else if(tempVertices[((std::stoi(tempFaces[0])-1)*3)+2] > m_maxZ)
+						m_maxZ = tempVertices[((std::stoi(tempFaces[0])-1)*3)+2];
 					tempFaces.clear();
 				}
 			}
@@ -81,7 +85,9 @@ Mesh::Mesh(std::string _address, std::string _name)
 		tempData.clear();
 		line.clear();
 	}
+	std::cout << m_vertices.size() << "\n";
 	Source.close();
+	//std::cout << m_name << "\t" << m_normals.size() << "\t" << m_vertices.size() <<std::endl;
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -89,7 +95,7 @@ Mesh::Mesh(std::string _address, std::string _name)
 void Mesh::draw(const float size) const
 {
 	glBegin(GL_TRIANGLES);
-		for (int i = 0; i < m_vertices.size(); i+=3)
+	for (int i = 0; i < m_vertices.size(); i+=3)
 		{
 			glNormal3f(m_normals[i]*size, m_normals[i+1]*size, m_normals[i+2]*size);
 			glVertex3f(m_vertices[i]*size, m_vertices[i+1]*size, m_vertices[i+2]*size);

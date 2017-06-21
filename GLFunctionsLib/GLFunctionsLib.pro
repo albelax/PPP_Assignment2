@@ -5,7 +5,7 @@ CONFIG+=staticlib
 # use C++ 11
 CONFIG+=c++11
 # qt 5 wants this may cause errors with 4
-isEqual(QT_MAJOR_VERSION, 5) {cache() }
+isEqual(QT_MAJOR_VERSION, 5) { cache() }
 QT += core
 QT +=opengl
 
@@ -36,7 +36,8 @@ INCLUDEPATH += /usr/local/include/SDL2
 LIBS += -L/usr/local/lib
 macx:LIBS+= -framework OpenGL
 # now if we are under unix and not on a Mac (i.e. linux) define GLEW
-linux-g++:linux-g++-64 {
+linux-g++:linux-g++-64
+{
     LIBS+= -lGLEW
 }
 linux-clang {

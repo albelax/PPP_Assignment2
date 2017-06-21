@@ -98,6 +98,9 @@ void Player::updatePosition()
 	 * the x and z values are the only ones that will be modified,
 	 * the other ones need to be set to 1 so that the Assert in the normalize() won't fail
 	 * (just in case it will be normalized)
+	 *
+	 * the player will update the position based on its rotation multiplied by its speed
+	 * unless a collision happened or will happen it will move in that direction
 	 */
 	Vec4 temp(0,1,0,1);
 	float x_direction = 0;
@@ -171,7 +174,8 @@ void Player::draw() const
 	glPushMatrix();
 		glTranslatef(m_position.m_x,0,m_position.m_z);
 		glRotatef(m_rotation.m_x,0,1,0);
-    m_playerMesh->draw(m_size);
+		//glScalef(10,10,10);
+    	m_playerMesh->draw(m_size);
 
 		glColor4f(m_healthColor.m_x, m_healthColor.m_y, m_healthColor.m_z, m_healthColor.m_w);
 
@@ -190,6 +194,8 @@ void Player::checkCollision(bool _collided)
 
 void Player::updatehealthBar()
 {
+	// changes color to the health bar, it goes all the way from green to red
+	// it is based on the player health
   if (m_life == m_initialLife)
   {
     m_healthColor.m_x = 0;

@@ -1,0 +1,67 @@
+\hypertarget{classEnemy}{}\section{Enemy Class Reference}
+\label{classEnemy}\index{Enemy@{Enemy}}
+
+
+gameobjects hostile to the player  
+
+
+
+
+{\ttfamily \#include $<$Enemy.\+h$>$}
+
+Inheritance diagram for Enemy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classEnemy}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Enemy} (\hyperlink{classVec4}{Vec4} const \+\_\+position, \hyperlink{classVec4}{Vec4} const \+\_\+rotation, float \+\_\+speed, bool \+\_\+active, int \+\_\+life, \hyperlink{classMesh}{Mesh} $\ast$\+\_\+mesh, \hyperlink{classPlayer}{Player} $\ast$\+\_\+player)\hypertarget{classEnemy_ab74657627d71aa9644791fa8a2996f10}{}\label{classEnemy_ab74657627d71aa9644791fa8a2996f10}
+
+\item 
+virtual void {\bfseries update\+Position} ()\hypertarget{classEnemy_abca865a60e8134aa3fcfc4558de71587}{}\label{classEnemy_abca865a60e8134aa3fcfc4558de71587}
+
+\item 
+virtual void {\bfseries update\+Rotation} ()\hypertarget{classEnemy_a469a2e96ff4c742b7f4a13f1e12602a7}{}\label{classEnemy_a469a2e96ff4c742b7f4a13f1e12602a7}
+
+\item 
+virtual void {\bfseries draw} () const \hypertarget{classEnemy_a80f897d499f4caa87a161de4ba0ecde0}{}\label{classEnemy_a80f897d499f4caa87a161de4ba0ecde0}
+
+\item 
+bool {\bfseries can\+Shoot} () const \hypertarget{classEnemy_aec557d07779498d06946e448b4365bae}{}\label{classEnemy_aec557d07779498d06946e448b4365bae}
+
+\item 
+void {\bfseries can\+Shoot} (bool \+\_\+can\+Shoot)\hypertarget{classEnemy_a31998103d6c9d3aa5ed98ca9e2c11afb}{}\label{classEnemy_a31998103d6c9d3aa5ed98ca9e2c11afb}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries m\+\_\+shoot}\hypertarget{classEnemy_a0adddde568ab04784f55483345a8a91f}{}\label{classEnemy_a0adddde568ab04784f55483345a8a91f}
+
+\item 
+\hyperlink{classMesh}{Mesh} $\ast$ {\bfseries m\+\_\+mesh}\hypertarget{classEnemy_afebfefd6f39ac7e7ff50a973861de65b}{}\label{classEnemy_afebfefd6f39ac7e7ff50a973861de65b}
+
+\item 
+\hyperlink{classPlayer}{Player} $\ast$ {\bfseries m\+\_\+player}\hypertarget{classEnemy_a98d4492b5b0884704a8bf30d3f53108c}{}\label{classEnemy_a98d4492b5b0884704a8bf30d3f53108c}
+
+\item 
+float {\bfseries m\+\_\+size}\hypertarget{classEnemy_abc4b39ceb10b8f9741b41c22cd0c6554}{}\label{classEnemy_abc4b39ceb10b8f9741b41c22cd0c6554}
+
+\item 
+bool {\bfseries m\+\_\+can\+Shoot}\hypertarget{classEnemy_a387cb17e4c46c8e8663b6313e0962274}{}\label{classEnemy_a387cb17e4c46c8e8663b6313e0962274}
+
+\item 
+bool {\bfseries m\+\_\+close\+To\+Player}\hypertarget{classEnemy_a3801f0224fad82ac775a371b4c576e0c}{}\label{classEnemy_a3801f0224fad82ac775a371b4c576e0c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+gameobjects hostile to the player 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Enemy.\+h\end{DoxyCompactItemize}

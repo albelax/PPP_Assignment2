@@ -13,13 +13,13 @@ SOURCES += \
 		src/Window.cpp \
 		src/GameObject.cpp \
 		src/Player.cpp \
-    src/UtilityFunctions.cpp \
+    	src/UtilityFunctions.cpp \
 		src/Mesh.cpp \
 		src/Obstacle.cpp \
 		src/Level.cpp \
-    		src/Bullet.cpp \
-    		src/Enemy.cpp \
-    		src/EnemySatellite.cpp \
+src/Bullet.cpp \
+src/Enemy.cpp \
+src/EnemySatellite.cpp \
     src/Particles.cpp \
 		src/Particle.cpp
 

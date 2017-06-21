@@ -26,7 +26,6 @@ Uint32 Update(Uint32 _interval, void * _param)
   if (level != nullptr)
   {
 		level->update();
-
   }
 	return _interval;
 }
@@ -64,7 +63,7 @@ int main()
 	int height = 600;
 	int cellSize = 11;
   std::vector<Mesh*> meshes;
-	Mesh shipMesh("models/car.obj", "ship");
+	Mesh shipMesh("models/untitled.obj", "ship");
   meshes.push_back(&shipMesh);
   Mesh asteroidMesh("models/Asteroid.obj", "obstacle");
   meshes.push_back(&asteroidMesh);

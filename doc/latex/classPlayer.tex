@@ -1,0 +1,68 @@
+\hypertarget{classPlayer}{}\section{Player Class Reference}
+\label{classPlayer}\index{Player@{Player}}
+
+
+is an Object controlled by a player  
+
+
+
+
+{\ttfamily \#include $<$Player.\+h$>$}
+
+Inheritance diagram for Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classPlayer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Player} (\hyperlink{classVec4}{Vec4} const \+\_\+position, \hyperlink{classVec4}{Vec4} const \+\_\+rotation, float \+\_\+speed, bool \+\_\+active, int \+\_\+life, \hyperlink{classMesh}{Mesh} $\ast$\+\_\+player\+Mesh)\hypertarget{classPlayer_aea2cc909f6edf32535322dc2e50e706d}{}\label{classPlayer_aea2cc909f6edf32535322dc2e50e706d}
+
+\item 
+void {\bfseries update\+Position} ()\hypertarget{classPlayer_a1cb7ff18fe3b07cc1dcd27519bde8329}{}\label{classPlayer_a1cb7ff18fe3b07cc1dcd27519bde8329}
+
+\item 
+void {\bfseries update\+Rotation} ()\hypertarget{classPlayer_a13b4bc20dd8e661bd091684a77e62762}{}\label{classPlayer_a13b4bc20dd8e661bd091684a77e62762}
+
+\item 
+void {\bfseries check\+Collision} (bool \+\_\+collided)\hypertarget{classPlayer_a2ce46af4329b7dd62de5314cfdf68d02}{}\label{classPlayer_a2ce46af4329b7dd62de5314cfdf68d02}
+
+\item 
+void {\bfseries draw} () const \hypertarget{classPlayer_aa1df31ab187c296318bb2ca09237e010}{}\label{classPlayer_aa1df31ab187c296318bb2ca09237e010}
+
+\item 
+bool {\bfseries can\+Shoot} () const \hypertarget{classPlayer_aea39f9314e03fe306eb46492ca441c8b}{}\label{classPlayer_aea39f9314e03fe306eb46492ca441c8b}
+
+\item 
+void {\bfseries can\+Shoot} (bool \+\_\+can\+Shoot)\hypertarget{classPlayer_ab01c82bacc9fe74dc30a278984cb30a8}{}\label{classPlayer_ab01c82bacc9fe74dc30a278984cb30a8}
+
+\item 
+void {\bfseries input} (S\+D\+L\+\_\+\+Event \&\+\_\+event)\hypertarget{classPlayer_aab63aa497bf58ad86b83f79568fd8763}{}\label{classPlayer_aab63aa497bf58ad86b83f79568fd8763}
+
+\item 
+\hyperlink{classVec4}{Vec4} {\bfseries get\+Next\+Position} () const \hypertarget{classPlayer_a86231b2071b967960041afb4578dc484}{}\label{classPlayer_a86231b2071b967960041afb4578dc484}
+
+\item 
+void {\bfseries will\+Collide} (bool \+\_\+will\+Collide)\hypertarget{classPlayer_a75fc22bdb8f6857f181eb85cc07efcc2}{}\label{classPlayer_a75fc22bdb8f6857f181eb85cc07efcc2}
+
+\item 
+std\+::array$<$ char, 5 $>$ {\bfseries pressed\+Keys} ()\hypertarget{classPlayer_ae0c6fe41ad92fc72437b38fe97422a58}{}\label{classPlayer_ae0c6fe41ad92fc72437b38fe97422a58}
+
+\item 
+void {\bfseries reset\+Life} ()\hypertarget{classPlayer_a2cd88e83a7839a42d68fb9f6965cc8a2}{}\label{classPlayer_a2cd88e83a7839a42d68fb9f6965cc8a2}
+
+\item 
+void {\bfseries updatehealth\+Bar} ()\hypertarget{classPlayer_a2b19a4da34d0b64209b617107c4d4ce7}{}\label{classPlayer_a2b19a4da34d0b64209b617107c4d4ce7}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+is an Object controlled by a player 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Player.\+h\end{DoxyCompactItemize}

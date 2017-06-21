@@ -11,12 +11,12 @@ Window::Window(const int _width, const int _height)
 		printf("%s\n",SDL_GetError());
 	}
 
-	this ->m_renderer = SDL_CreateRenderer(m_window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (m_renderer == 0)
-	{
-		m_renderer = SDL_GetRenderer(m_window);
-		printf("%s\n",SDL_GetError());
-	}
+//	this ->m_renderer = SDL_CreateRenderer(m_window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+//	if (m_renderer == 0)
+//	{
+//		m_renderer = SDL_GetRenderer(m_window);
+//		printf("%s\n",SDL_GetError());
+//	}
 
 	m_context = SDL_GL_CreateContext(m_window);
 	glInit();
