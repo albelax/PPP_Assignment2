@@ -18,9 +18,9 @@
 class Obstacle : public GameObject
 {
 private:
-	float m_size;
-	Mesh * m_mesh;
-	int m_life;
+  int m_life;
+  Mesh * m_mesh;
+  float m_size;
 
 public:
 	Obstacle(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_mesh, float _size);

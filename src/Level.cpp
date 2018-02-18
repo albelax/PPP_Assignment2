@@ -7,7 +7,7 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 	m_cellSize = _cellSize;
 	int obstacle;
 	int bullet;
-	for (int i = 0; i < _meshes.size(); ++i)
+  for (unsigned int i = 0; i < _meshes.size(); ++i)
 	{
 		if(_meshes[i]->name() == "base")
 			obstacle = i;
@@ -16,7 +16,7 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 	}
 	std::vector<std::string> mapFile = utilityFunctions::loadFromFile(_address);
 	int count = 0;
-	for (int i = 0; i < mapFile.size(); ++i)
+  for ( unsigned int i = 0; i < mapFile.size(); ++i )
 	{
 		if (utilityFunctions::split(mapFile[i])[0] == "w")
 			m_mapWidth = std::stoi(utilityFunctions::split(mapFile[i])[1]);
@@ -27,7 +27,7 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 		else
 		{
 			std::vector<char> tempVec;
-			for (int j = 0; j < utilityFunctions::split(mapFile[i]).size(); ++j)
+      for (unsigned int j = 0; j < utilityFunctions::split(mapFile[i]).size(); ++j)
 			{
 				std::string tempLine = utilityFunctions::split(mapFile[i])[j];
 				if(tempLine == "0")
@@ -77,15 +77,15 @@ Level::Level(std::string _address, Player* _player, std::vector<Mesh *> _meshes,
 	{
 		m_bullets.push_back(Bullet(Vec4(0,0,0,1),Vec4(0,0,0,1),0.5f,false, _meshes[bullet]));
 	}
-	for (int i = 0; i < m_enemies.size(); ++i)
+  for (unsigned int i = 0; i < m_enemies.size(); ++i)
 	{
 		m_objects.push_back(&m_enemies[i]);
 	}
-	for (int i = 0; i < m_Satellites.size(); ++i)
+  for (unsigned int i = 0; i < m_Satellites.size(); ++i)
 	{
 		m_objects.push_back(&m_Satellites[i]);
 	}
-	for (int i = 0; i < m_obstacles.size(); ++i)
+  for (unsigned int i = 0; i < m_obstacles.size(); ++i)
 	{
 		m_objects.push_back(&m_obstacles[i]);
 	}
@@ -151,14 +151,14 @@ void Level::draw() const
 	/// draws all the objects
   m_player->draw();
 
-	for (int i = 0; i < m_objects.size(); ++i)
+  for ( unsigned int i = 0; i < m_objects.size(); ++i )
 	{
 		if(std::abs(m_player->getPosition().m_x - m_objects[i]->getPosition().m_x) < 50 && std::abs(m_player->getPosition().m_z - m_objects[i]->getPosition().m_z) < 50 )
 		{
 			m_objects[i]->draw();
 		}
 	}
-  for (int i = 0; i < m_bullets.size(); ++i)
+  for (unsigned int i = 0; i < m_bullets.size(); ++i)
   {
     if(m_bullets[i].active())
       m_bullets[i].draw();
@@ -176,7 +176,7 @@ void Level::drawMap() const
 	int x = m_cellSize*3;
 	int z = m_cellSize*3;
 
-	for (int i = 0; i < m_meshes.size(); ++i)
+  for ( unsigned int i = 0; i < m_meshes.size(); ++i )
 	{
 			if (std::abs(m_player->getPosition().m_x - x) < 100
 			&& std::abs(m_player->getPosition().m_z - z) < 100)
@@ -204,7 +204,7 @@ void Level::drawMap() const
 void Level::activateBullets()
 {
 	/// activates the bullets for enemies and player
-	for(int i = 0; i< m_bullets.size(); ++i)
+  for( unsigned int i = 0; i< m_bullets.size(); ++i )
   {
 		if(m_bullets[i].active() == false && m_player->canShoot() && m_player->pressedKeys()[4] == '1')
     {
@@ -214,7 +214,7 @@ void Level::activateBullets()
 			return;
     }
 
-    for (int i = 0; i < m_objects.size(); ++i)
+    for ( unsigned int i = 0; i < m_objects.size(); ++i )
     {
       if((std::abs(m_player->getPosition().m_x - m_objects[i]->getPosition().m_x) < 30
         && std::abs(m_player->getPosition().m_z - m_objects[i]->getPosition().m_z) < 30)
@@ -241,7 +241,7 @@ void Level::Collisions()
 	std::vector<GameObject*>::iterator it;
 
 	// collision detection between enemies and player, and enemies and bullets
-	for (it = m_objects.begin(); it != m_objects.end(); ++it)
+  for ( it = m_objects.begin(); it != m_objects.end(); ++it )
 	{
 		if(std::abs(m_player->getPosition().m_x - (*it)->getPosition().m_x) < 50 && std::abs(m_player->getPosition().m_z - (*it)->getPosition().m_z) < 50)
 		{
@@ -258,11 +258,11 @@ void Level::Collisions()
 				m_player->willCollide(true);
 			}
 
-			for(int j = 0; j< m_bullets.size(); ++j)
+      for( unsigned int j = 0; j< m_bullets.size(); ++j )
 			{
 				// collision between a bullet shot by the player and an enemy
 				// if there is a collision and the life of the enemy is 0 the enemy will be deleted from the object list
-				if (m_bullets[j].getParent() == m_player && std::abs(m_bullets[j].getPosition().m_x - (*it)->getPosition().m_x) < m_bullets[j].getCollisionLimit_x() + (*it)->getCollisionLimit_x()
+        if ( m_bullets[j].getParent() == m_player && std::abs(m_bullets[j].getPosition().m_x - (*it)->getPosition().m_x) < m_bullets[j].getCollisionLimit_x() + (*it)->getCollisionLimit_x()
 				&& std::abs(m_bullets[j].getPosition().m_z - (*it)->getPosition().m_z) < m_bullets[j].getCollisionLimit_z() + (*it)->getCollisionLimit_z())
 				{
 					m_bullets[j].active(false);
@@ -291,7 +291,7 @@ void Level::Collisions()
 		m_player->willCollide(true);
 
 	// checks collisions between bullets and the walls
-	for(int i = 0; i< m_bullets.size(); ++i)
+  for( unsigned int i = 0; i< m_bullets.size(); ++i )
 	{
 		if(m_bullets[i].active())
 		{

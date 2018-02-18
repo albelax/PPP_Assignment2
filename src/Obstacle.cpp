@@ -1,7 +1,7 @@
 #include "Obstacle.h"
 
 Obstacle::Obstacle(Vec4 const _position, Vec4 const _rotation, float _speed, bool _active, int _life, Mesh *_mesh, float _size) :
-GameObject(_position, _rotation, _speed, _active), m_life(_life = 3), m_mesh(),m_size(_size)
+GameObject(_position, _rotation, _speed, _active), m_life(_life), m_mesh( _mesh ), m_size( _size )
 {
 	m_speed = _speed;
 	m_position = _position;

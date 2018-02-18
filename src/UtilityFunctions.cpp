@@ -206,7 +206,7 @@ void utilityFunctions::DrawLevel(const std::vector<char> _map, const int _x)
 	float spread = 1.5f;
 
 	glColor3f(1, 0, 0);
-	for (int i = 0; i < _map.size(); ++i)
+  for (unsigned int i = 0; i < _map.size(); ++i)
 	{
 		if ( i % _x == 0)
 		{

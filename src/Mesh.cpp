@@ -53,7 +53,7 @@ Mesh::Mesh(std::string _address, std::string _name)
 			}
 			else if (tempData[0] == "f")
 			{
-				for (int i = 0; i < static_cast<int>(tempData.size()-1); ++i) // -1 to avoid overflow
+        for (unsigned int i = 0; i < tempData.size()-1; ++i ) // -1 to avoid overflow
 				{
 					tempFaces = utilityFunctions::split(tempData[i+1], '/');
 
@@ -95,7 +95,7 @@ Mesh::Mesh(std::string _address, std::string _name)
 void Mesh::draw(const float size) const
 {
 	glBegin(GL_TRIANGLES);
-	for (int i = 0; i < m_vertices.size(); i+=3)
+  for (unsigned int i = 0; i < m_vertices.size(); i+=3)
 		{
 			glNormal3f(m_normals[i]*size, m_normals[i+1]*size, m_normals[i+2]*size);
 			glVertex3f(m_vertices[i]*size, m_vertices[i+1]*size, m_vertices[i+2]*size);

@@ -31,6 +31,7 @@ void Window::setWindowSize(const int &_width, const int &_height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
   gluPerspective(60.0f, float(m_width) / float(m_height), 0.1f, 100.0f);
+
   glViewport(0,0,m_width,m_height);
 	glMatrixMode(GL_MODELVIEW);
 }

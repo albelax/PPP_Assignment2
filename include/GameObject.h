@@ -26,7 +26,7 @@ public:
   virtual void updateRotation() {}
 	virtual bool active() const;
 	virtual void active(bool const _active);
-	virtual void checkCollision(bool _collided) {}
+//	virtual void checkCollision(bool _collided) {}
 	virtual void draw() const {}
 	int life() const { return m_life; }
 	void life(int const _life) { m_life = _life; }

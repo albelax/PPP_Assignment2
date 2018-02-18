@@ -6,7 +6,6 @@ isEqual(QT_MAJOR_VERSION, 5) {cache() }
 QT += core
 
 INCLUDEPATH += $$PWD/include/
-#INCLUDEPATH += $$PWD/mesh/
 
 SOURCES += \
 		src/main.cpp \
@@ -42,7 +41,7 @@ HEADERS += \
     include/Particle.h
 
 
-
+OBJECTS_DIR = obj
 
 macx:LIBS += -F/Library/Frameworks -framework SDL2
 macx:INCLUDEPATH += /Library/Frameworks/SDL.framework/Headers
@@ -62,6 +61,5 @@ LIBS += $$system(sdl2-config --libs)
 LIBS += -L/usr/local/lib
 macx:LIBS+= -framework OpenGL
 
-linux-g++:linux-g++-64:LIBS+= -lGLU
-linux-clang : LIBS+= -lGLU
+linux: LIBS += -lGL -lGLU -lGLEW
 
