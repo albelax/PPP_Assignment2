@@ -1,6 +1,6 @@
 
 # First Year Programming Assignment
-This is a small game that was developed as a first year assignment using the Fixed Function Pipeline of OpenGL ( deprecated ) and SDL
+This is a small game that was developed as a first year assignment using the Fixed Function Pipeline of OpenGL (deprecated) and SDL
 
 ## Requirements
 * [OpenGL](https://www.opengl.org/)  ( 3.0 ) - used to draw the game
