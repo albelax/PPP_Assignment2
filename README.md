@@ -8,3 +8,7 @@ This is a small game that was developed as a first year assignment using the Fix
 * [Qt]( https://www.qt.io/ ) - QtCreator was my IDE of choice, however Qt libraries were not used in this project 
 * GLFunctionsLib - a simple Math library included in the project, **Build this before**
 
+## How to Play
+* **Up** key to move forward
+* **Down** key to move backwards
+* **Left** and **Right** keys to rotate 
