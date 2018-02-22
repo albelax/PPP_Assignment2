@@ -12,3 +12,4 @@ This is a small game that was developed as a first year assignment using the Fix
 * **Up** key to move forward
 * **Down** key to move backwards
 * **Left** and **Right** keys to rotate 
+* **Space** to shoot
